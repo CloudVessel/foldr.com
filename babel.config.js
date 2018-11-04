@@ -6,7 +6,7 @@ module.exports = {
         "targets": "> 0.25%, not dead"
       }
     ],
-    "preset-react"
+    "@babel/preset-react"
   ],
   plugins: [
     "@babel/plugin-proposal-class-properties"
