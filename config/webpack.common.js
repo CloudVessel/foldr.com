@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'index.js',
@@ -25,11 +25,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
-      }
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   plugins: [
@@ -37,6 +34,9 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
       inject: false,
+      minify: {
+        collapseWhitespace: true,
+      },
     }),
   ],
   devServer: {
