@@ -1,14 +1,16 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Docs from './pages/docs';
-import Home from './pages/home';
+import {
+  Docs,
+  Home,
+} from './pages';
 
 const Router = (props) => {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/docs" component={Docs} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/docs" component={Docs} />
       <Redirect to="/" />
     </Switch>
   );
