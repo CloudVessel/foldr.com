@@ -1,5 +1,5 @@
 import React from 'react';
-import hot from 'react-hot-loader';
+import { hot } from 'react-hot-loader';
 
 import Router from './Router';
 
@@ -10,5 +10,5 @@ const App = () => (
 );
 
 export default process.env.NODE_ENV === 'development'
-  ? App
-  : hot(module)(App);
+  ? hot(module)(App)
+  : App;
