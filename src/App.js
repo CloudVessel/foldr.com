@@ -1,9 +1,14 @@
 import React from 'react';
+import hot from 'react-hot-loader';
+
+import Router from './Router';
 
 const App = () => (
   <div>
-    Foldr
+    <Router />
   </div>
 );
 
-export default App;
+export default process.env.NODE_ENV === 'development'
+  ? App
+  : hot(module)(App);
