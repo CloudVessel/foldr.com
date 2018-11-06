@@ -6,14 +6,12 @@ import {
   Home,
 } from './pages';
 
-const Router = (props) => {
-  return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/docs" component={Docs} />
-      <Redirect to="/" />
-    </Switch>
-  );
-};
+const Router = () => (
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route exact path="/docs" component={Docs} />
+    <Redirect to="/" />
+  </Switch>
+);
 
 export default Router;

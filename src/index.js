@@ -8,5 +8,6 @@ import './styles/main.css';
 ReactDom.render(
   <BrowserRouter>
     <Root />
-  </BrowserRouter>
-, document.getElementById('root'));
+  </BrowserRouter>,
+  document.getElementById('root'),
+);
