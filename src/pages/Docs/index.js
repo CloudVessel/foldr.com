@@ -1,9 +1,16 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-const Docs = () => (
-  <div>
-    This is docs
-  </div>
-);
+const Docs = (props) => {
+  const { history } = props;
 
-export default Docs;
+  console.log(history);
+
+  return (
+    <div>
+      This is docs
+    </div>
+  );
+};
+
+export default withRouter(Docs);
