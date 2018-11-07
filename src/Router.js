@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import {
-  Docs,
-  Home,
-  NotFound,
-} from './pages';
+import withLazyLoad from './components/HOC/withLazyLoad';
+
+const Home = withLazyLoad(() => import('./pages/Home'));
+const Docs = withLazyLoad(() => import('./pages/Docs'));
+const NotFound = withLazyLoad(() => import('./pages/NotFound'));
 
 const Router = () => (
   <Switch>
