@@ -2,16 +2,28 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
-const Docs = (props) => {
-  const { history } = props;
+import Header from '../../components/Header';
 
-  console.log(history);
+const styles = (theme) => {
+  console.log('here', theme);
+
+  return {
+    root: {
+      height: '100vh',
+      backgroundColor: theme.palette.primary.main,
+    },
+  };
+};
+
+const Docs = (props) => {
+  const { classes } = props;
 
   return (
-    <div>
+    <div className={classes.root}>
+      <Header />
       This is docs
     </div>
   );
 };
 
-export default withRouter(Docs);
+export default withStyles(styles)(withRouter(Docs));
