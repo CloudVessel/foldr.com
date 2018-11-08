@@ -21,7 +21,7 @@ module.exports = merge(common, {
       //       loader: 'css-loader',
       //     },
       //   ]
-      // }, 
+      // },
       // @TODO fix mini extract for prod.. shits broken right now.
     ],
   },

@@ -16,9 +16,7 @@ module.exports = {
   env: {
     production: {
       presets: ['minify'],
-      plugins: ['transform-react-remove-prop-types', {
-        ignoreFilenames: ['node_modules'],
-      }],
+      plugins: ['transform-react-remove-prop-types'],
     },
   },
 };
