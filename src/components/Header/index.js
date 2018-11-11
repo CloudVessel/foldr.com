@@ -16,7 +16,7 @@ const styles = theme => ({
     right: 0,
   },
   title: {
-    width: 360,
+    width: 300,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   mainContent: {
     height: '100%',
-    width: '100%',
+    width: 'calc(100% - 300px)',
     display: 'flex',
     alignItems: 'center',
     color: theme.palette.secondary.main,
