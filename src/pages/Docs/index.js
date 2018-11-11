@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 
 const styles = (theme) => {
   console.log('here', theme);
@@ -21,6 +22,7 @@ const Docs = (props) => {
   return (
     <div className={classes.root}>
       <Header />
+      <Sidebar />
       This is docs
     </div>
   );
