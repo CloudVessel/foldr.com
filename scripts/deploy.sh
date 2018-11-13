@@ -32,7 +32,7 @@ function deploy {
 }
 
 function init {
-  case $TRAVIS_BUILD_DIR in
+  case $TRAVIS_BRANCH in
     master)
       deploy $S3_PROD_BUCKET
       ;;
@@ -40,7 +40,7 @@ function init {
       deploy $S3_DEV_BUCKET
       ;;
     *)
-      echo "Branch [$TRAVIS_BUILD_DIR] not included in allowed deploy branches. Exiting."
+      echo "Branch [$TRAVIS_BRANCH] not included in allowed deploy branches. Exiting."
       ;;
   esac
 }
