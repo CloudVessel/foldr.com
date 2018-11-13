@@ -24,7 +24,7 @@ EOF1
 
 function deploy {
   makeAwsDir
-  echoBanner "Initiating deploy process"
+  echoBanner "Initiating deploy process to $1"
 
   aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
