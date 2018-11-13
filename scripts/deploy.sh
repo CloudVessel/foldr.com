@@ -32,7 +32,7 @@ function deploy {
 }
 
 function init {
-  case $1 in
+  case $TRAVIS_BUILD_DIR in
     master)
       deploy $S3_PROD_BUCKET
       ;;
@@ -45,4 +45,4 @@ function init {
   esac
 }
 
-init $TRAVIS_BUILD_DIR
+init

@@ -1,26 +1,37 @@
 language: node_js
+
 node_js: stable
-branchs:
+
+branches:
   only:
   - develop
   - master
-  - release
+
 before_script:
   npm update -g npm
+
 cache:
   directories:
   - node_modules
+
+# Travis CI process.
+# Cleanup is skipped so install / build output will remain in tact during deploy
 script:
 # - npm test
 - npm install
 - npm run build
+
+# pull down aws cli
 before_deploy:
   - 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
   - 'unzip awscli-bundle.zip'
   - './awscli-bundle/install -b ~/bin/aws'
   - 'export PATH=~/bin:$PATH'
+
 deploy:
   provider: script
+  # custom script to run for deploy process
   script: chmod +x ./scripts/deploy.sh && bash ./scripts/deploy.sh
+  # This tells travis to keep dist output
   skip_cleanup: true
   all_branches: true
