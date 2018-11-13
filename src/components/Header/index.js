@@ -10,7 +10,7 @@ const styles = theme => ({
     boxShadow: theme.shadow.box.main,
     zIndex: 999,
     padding: '10px 0px',
-    height: 80,
+    maxHeight: 80,
     position: 'fixed',
     left: 0,
     right: 0,
