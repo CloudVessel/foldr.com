@@ -13,10 +13,10 @@ function makeAwsDir {
 
   mkdir -p ~/.aws
 
-  cat > ~/.aws/credentials << EOF1
-  [default]
-  aws_access_key_id = $AWS_ACCESS_KEY
-  aws_secret_access_key = $AWS_SECRET_TOKEN
+cat > ~/.aws/credentials << EOF1
+[default]
+aws_access_key_id = $AWS_ACCESS_KEY
+aws_secret_access_key = $AWS_SECRET_TOKEN
 EOF1
 
   echo ".aws direction successfully created."
@@ -24,7 +24,7 @@ EOF1
 
 function deploy {
   makeAwsDir
-  echoBanner "Initiating deploy process to $1"
+  echoBanner "Initiating deploy process."
 
   aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
