@@ -29,8 +29,6 @@ before_deploy:
   - 'export PATH=~/bin:$PATH'
 
 deploy:
-  # Only run deploy on pull requests
-  if: type = pull_request
   provider: script
   # custom script to run for deploy process
   script: chmod +x ./scripts/deploy.sh && bash ./scripts/deploy.sh
