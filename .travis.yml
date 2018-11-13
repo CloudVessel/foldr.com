@@ -2,11 +2,6 @@ language: node_js
 
 node_js: stable
 
-branches:
-  only:
-  - develop
-  - master
-
 before_script:
   npm update -g npm
 
@@ -30,8 +25,13 @@ before_deploy:
 
 deploy:
   provider: script
+  if: 
   # custom script to run for deploy process
   script: chmod +x ./scripts/deploy.sh && bash ./scripts/deploy.sh
   # This tells travis to keep dist output
   skip_cleanup: true
-  all_branches: true
+  on:
+    branches:
+      only:
+        - master
+        - develop
