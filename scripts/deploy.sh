@@ -40,7 +40,7 @@ function init {
       deploy $S3_DEV_BUCKET
       ;;
     *)
-      echo "Branch [$1] not included in target deploy branches. Exiting."
+      echo "Branch [$TRAVIS_BUILD_DIR] not included in allowed deploy branches. Exiting."
       ;;
   esac
 }
