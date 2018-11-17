@@ -4,7 +4,7 @@
   "description": "The foldr website.",
   "main": "./src/index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --mode development --config ./config/webpack.common.js --open --hot --history-api-fallback --stats --progress",
+    "start": "NODE_ENV=development APP_URL=fuckyou webpack-dev-server --mode development --config ./config/webpack.common.js --open --hot --history-api-fallback --stats --progress",
     "build": "rm -rf dist && NODE_ENV=production webpack -p --config ./config/webpack.production.js --stats",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/CloudVessel/foldr.com#readme",
   "dependencies": {
     "@material-ui/core": "^3.4.0",
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
