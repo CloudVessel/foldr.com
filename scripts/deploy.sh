@@ -31,18 +31,14 @@ function deploy {
   echo "Deploy process successfully completed."
 }
 
-function init {
-  case $TRAVIS_BRANCH in
-    master)
-      deploy $S3_PROD_BUCKET
-      ;;
-    develop)
-      deploy $S3_DEV_BUCKET
-      ;;
-    *)
-      echo "Branch [$TRAVIS_BRANCH] not included in allowed deploy branches. Exiting."
-      ;;
-  esac
-}
-
-init
+case $TRAVIS_BRANCH in
+  master)
+    deploy $S3_PROD_BUCKET
+    ;;
+  develop)
+    deploy $S3_DEV_BUCKET
+    ;;
+  *)
+    echo "Branch [$TRAVIS_BRANCH] not included in allowed deploy branches. Exiting."
+    ;;
+esac
