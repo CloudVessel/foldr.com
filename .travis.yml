@@ -3,8 +3,8 @@ language: node_js
 node_js: stable
 
 stages:
-  - name: test
-    if: NOT (branch = master) AND NOT (branch = develop)
+  # - name: test
+  #   if: NOT (branch = master) AND NOT (branch = develop)
   - name: build
     if: branch IN (develop, master)
   - name: deploy
@@ -17,17 +17,12 @@ cache:
   directories:
   - node_modules
 
-stages:
-  - test
-  - build
-  - deploy
-
 # Travis CI process.
 # Cleanup is skipped so install / build output will remain in tact during deploy
 jobs:
   include:
-    - stage: test
-      script: "npm run test"
+    # - stage: test
+      # script: "npm run test"
     - stage: build
       script: chmod +x ./scripts/build.sh && bash ./scripts/build.sh
     - stage: deploy
