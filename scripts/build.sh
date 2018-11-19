@@ -2,7 +2,7 @@
 
 function write_file {
 
-cat > ../.env << EOF1
+cat > .env << EOF1
 APP_URL = $1
 EOF1
 
