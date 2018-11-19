@@ -3,12 +3,12 @@ language: node_js
 node_js: stable
 
 stages:
-  # - name: test
+  - name: test
     if: NOT type = push
   - name: build
-    if: branch IN (develop, master) AND (NOT type = pull_request)
+    if: branch IN (develop, master)
   - name: deploy
-    if: branch IN (develop, master) AND (NOT type = pull_request)
+    if: branch IN (develop, master) AND (NOT (type = pull_request))
 
 before_script:
   npm update -g npm
@@ -19,8 +19,8 @@ cache:
 
 jobs:
   include:
-    # - stage: test
-      # script: "npm run test"
+    - stage: test
+      script: "npm run test"
     - stage: build
       script: chmod +x ./scripts/build.sh && bash ./scripts/build.sh
     - stage: deploy
