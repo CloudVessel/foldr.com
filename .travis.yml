@@ -20,6 +20,7 @@ before_script:
 cache:
   directories:
   - node_modules
+  - dist
 
 jobs:
   include:
@@ -28,5 +29,4 @@ jobs:
     - stage: build
       script: chmod +x ./scripts/build.sh && bash ./scripts/build.sh
     - stage: deploy
-      skip_cleanup: true
       script: chmod +x ./scripts/deploy.sh && bash ./scripts/deploy.sh
