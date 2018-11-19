@@ -28,23 +28,24 @@ aws_access_key_id = $AWS_ACCESS_KEY
 aws_secret_access_key = $AWS_SECRET_TOKEN
 EOF1
 
-  echo ".aws direction successfully created."
+  echo ".aws directory successfully created."
 }
 
 function deploy {
-  aws
   echoBanner "Initiating deploy process."
 
-  aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
+  yes | aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
   echo "Deploy process successfully completed."
 }
 
 case $TRAVIS_BRANCH in
   master)
+    aws
     deploy $S3_PROD_BUCKET
     ;;
   develop)
+    aws
     deploy $S3_DEV_BUCKET
     ;;
   *)

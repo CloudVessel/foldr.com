@@ -9,6 +9,8 @@ const common = require('./webpack.common');
 
 const env = dotenv.config().parsed;
 
+console.log('fuuuu', env);
+
 module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
