@@ -8,15 +8,6 @@ function echoBanner {
   "
 }
 
-function aws {
-  curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-  unzip awscli-bundle.zip
-  ./awscli-bundle/install -b ~/bin/aws
-  export PATH=~/bin:$PATH
-
-  makeAwsDir
-}
-
 function makeAwsDir {
   echoBanner "Creating .aws directory."
 
@@ -34,19 +25,20 @@ EOF1
 function deploy {
   echoBanner "Initiating deploy process."
 
-  yes n | aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
+  aws --version
+  aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
   echo "Deploy process successfully completed."
 }
 
 case $TRAVIS_BRANCH in
   master)
-    aws
-    deploy $S3_PROD_BUCKET
+    makeAwsDir;
+    deploy $S3_PROD_BUCKET;
     ;;
   develop)
-    aws
-    deploy $S3_DEV_BUCKET
+    makeAwsDir;
+    deploy $S3_DEV_BUCKET;
     ;;
   *)
     echo "Branch [$TRAVIS_BRANCH] not included in allowed deploy branches. Exiting."
