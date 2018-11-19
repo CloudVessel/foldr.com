@@ -34,19 +34,19 @@ EOF1
 function deploy {
   echoBanner "Initiating deploy process."
 
-  yes n | aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
+  aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
   echo "Deploy process successfully completed."
 }
 
 case $TRAVIS_BRANCH in
   master)
-    aws
-    deploy $S3_PROD_BUCKET
+    aws;
+    deploy $S3_PROD_BUCKET;
     ;;
   develop)
-    aws
-    deploy $S3_DEV_BUCKET
+    aws;
+    deploy $S3_DEV_BUCKET;
     ;;
   *)
     echo "Branch [$TRAVIS_BRANCH] not included in allowed deploy branches. Exiting."
