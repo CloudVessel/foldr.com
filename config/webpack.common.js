@@ -47,4 +47,4 @@ module.exports = {
     stats: 'errors-only',
     historyApiFallback: true,
   },
-}
+};
