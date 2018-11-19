@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 
+import { getDocs } from '../../services/docs';
+
 const styles = theme => ({
   root: {
     position: 'fixed',

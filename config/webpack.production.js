@@ -1,10 +1,15 @@
 const path = require('path');
+const dotenv = require('dotenv');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const common = require('./webpack.common');
+
+const env = dotenv.config().parsed;
+
+console.log('fuuuu', env);
 
 module.exports = merge(common, {
   output: {
@@ -30,10 +35,9 @@ module.exports = merge(common, {
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: 'production',
-      },
+    new webpack.EnvironmentPlugin({
+      ...env,
+      NODE_ENV: 'production',
     }),
     new UglifyJsPlugin({
       sourceMap: true,
