@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --mode development --config ./config/webpack.common.js --open --hot --history-api-fallback --stats --progress",
     "build": "rm -rf dist && NODE_ENV=production webpack -p --config ./config/webpack.production.js --stats",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo 'testing'"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.6.0",
     "mini-css-extract-plugin": "^0.4.4",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.0.1",
