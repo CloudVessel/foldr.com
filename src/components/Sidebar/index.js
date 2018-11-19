@@ -26,6 +26,7 @@ const Sidebar = (props) => {
 
   return (
     <div className={classes.root}>
+      This is the sidebar
       {
         isLoadingDocs
           ? <Loading />

@@ -13,6 +13,9 @@ const styles = theme => ({
   },
 });
 
+/**
+ *
+ */
 class Docs extends React.Component {
   state = {
     docs: {},
@@ -21,31 +24,36 @@ class Docs extends React.Component {
   }
 
   /**
-  *
-  */
+   *
+   */
   componentDidMount() {
     this.handleFetchDocs();
   }
 
   /**
-  *
-  */
+   *
+   */
   handleFetchDocs = async () => {
     const { version } = this.state;
+
     this.setState({ isLoadingDocs: true });
 
     try {
       const { data } = await getDocs(version);
+
       this.setState({
         docs: data.docs,
       });
     } catch (e) {
-    // TODO: handle error from doc response
+      // TODO: handle error from doc response
     } finally {
       this.setState({ isLoadingDocs: false });
     }
-  }
+  };
 
+  /**
+   *
+   */
   render() {
     const { isLoadingDocs, docs } = this.state;
     const { classes } = this.props;
