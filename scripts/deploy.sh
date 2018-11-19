@@ -34,7 +34,8 @@ EOF1
 function deploy {
   echoBanner "Initiating deploy process."
 
-  aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
+  aws --version
+  yes N | aws s3 sync ${TRAVIS_BUILD_DIR}/dist s3://$1
 
   echo "Deploy process successfully completed."
 }
