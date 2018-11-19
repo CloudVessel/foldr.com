@@ -4,6 +4,7 @@
     "import/prefer-default-export": 0,
     "import/no-named-as-default": 0,
     "import/no-named-as-default-member": 0,
+    "implicit-arrow-linebreak": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": 1,
     "valid-jsdoc": "warn",

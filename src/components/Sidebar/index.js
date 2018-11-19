@@ -1,10 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 
-import { getDocs } from '../../services/docs';
+import Loading from '../Loading';
+import FuncItem from '../FuncItem';
 
 const styles = theme => ({
   root: {
+    marginTop: 87.5,
+    overflow: 'auto',
     position: 'fixed',
     top: 0,
     left: 0,
@@ -15,12 +18,19 @@ const styles = theme => ({
   },
 });
 
+const mapfunctionsToLinks = funcs =>
+  (funcs && funcs.length ? funcs.map(func => <FuncItem name={func} />) : []);
+
 const Sidebar = (props) => {
-  const { classes } = props;
+  const { classes, isLoadingDocs, funcs } = props;
 
   return (
     <div className={classes.root}>
-      This is the sidebar
+      {
+        isLoadingDocs
+          ? <Loading />
+          : mapfunctionsToLinks(funcs)
+      }
     </div>
   );
 };
