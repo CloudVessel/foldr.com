@@ -15,8 +15,6 @@ const styles = theme => ({
 const Function = (props) => {
   const { classes, name } = props;
 
-  console.log(name);
-
   return (
     <div className={classes.root}>
       {name}
