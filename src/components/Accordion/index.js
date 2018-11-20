@@ -15,11 +15,16 @@ const styles = theme => ({
     overflow: 'auto',
   },
   panel: {
+    color: theme.palette.text.main,
+    padding: '5px 24px 5px 24px',
+    minHeight: 30,
+    height: 30,
     '&:hover': {
       backgroundColor: theme.hovers[0],
     },
   },
   panelExpanded: {
+    color: theme.palette.primary.main,
     backgroundColor: theme.palette.foreground.secondary,
   },
 });
