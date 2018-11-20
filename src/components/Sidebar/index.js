@@ -23,7 +23,7 @@ const mapCategoriesToLinks = () => (funcs = {}) =>
     ? Object.keys(funcs).map(func => (
       <Category
         text={func}
-        innerText={funcs[func]}
+        functions={funcs[func]}
         key={func}
         name={func}
       />

@@ -10,23 +10,59 @@ const styles = theme => ({
     boxShadow: 'none',
     backgroundColor: theme.palette.foreground.main,
   },
+  details: {
+    display: 'block',
+    overflow: 'auto',
+  },
+  panel: {
+    '&:hover': {
+      backgroundColor: theme.hovers[0],
+    },
+  },
+  panelExpanded: {
+    backgroundColor: theme.palette.foreground.secondary,
+  },
 });
 
-const Accordion = (props) => {
-  const { classes, innerText, title } = props;
+/**
+ *
+ */
+class Accordion extends React.Component {
+  state = { isExpanded: false };
 
-  return (
-    <div>
-      <ExpansionPanel className={classes.root}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          {title}
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          {innerText}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
-  );
-};
+  /**
+   * 
+   */
+  handleToggleExpansion = () =>
+    this.setState(({ isExpanded }) => ({ isExpanded: !isExpanded }));
+
+  /**
+   * 
+   */
+  render() {
+    const { isExpanded } = this.state;
+    const { classes, innerText, title } = this.props;
+
+    return (
+      <div>
+        <ExpansionPanel
+          onChange={this.handleToggleExpansion}
+          expanded={isExpanded}
+          className={classes.root}
+        >
+          <ExpansionPanelSummary
+            className={isExpanded ? classes.panelExpanded : classes.panel}
+            expandIcon={<ExpandMoreIcon />}
+          >
+            {title}
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.details}>
+            {innerText}
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
+    );
+  }
+}
 
 export default withStyles(styles)(Accordion);
