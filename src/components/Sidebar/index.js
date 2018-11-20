@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 import Loading from '../Loading';
-import FuncItem from '../FuncItem';
+import Category from '../Category';
 
 const styles = theme => ({
   root: {
@@ -18,18 +18,30 @@ const styles = theme => ({
   },
 });
 
-const mapfunctionsToLinks = funcs =>
-  (funcs && funcs.length ? funcs.map(func => <FuncItem name={func} />) : []);
+const mapCategoriesToLinks = () => (funcs = {}) =>
+  (Object.keys(funcs).length
+    ? Object.keys(funcs).map(func => (
+      <Category
+        text={func}
+        innerText={funcs[func]}
+        key={func}
+        name={func}
+      />
+    ))
+    : []
+  );
 
 const Sidebar = (props) => {
   const { classes, isLoadingDocs, funcs } = props;
+
+  const mappedCategoriesWithProps = mapCategoriesToLinks(props);
 
   return (
     <div className={classes.root}>
       {
         isLoadingDocs
           ? <Loading />
-          : mapfunctionsToLinks(funcs)
+          : mappedCategoriesWithProps(funcs)
       }
     </div>
   );
