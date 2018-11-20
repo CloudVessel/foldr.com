@@ -14,7 +14,7 @@ export default createMuiTheme({
     },
     foreground: {
       main: '#F5F7F9',
-      secondary: '#fafafa',
+      secondary: '#fff',
     },
     grey: {
       main: '#5C6975',

@@ -18,7 +18,9 @@ const styles = theme => ({
  */
 class Docs extends React.Component {
   state = {
-    docs: {},
+    docs: {
+      categories: {},
+    },
     isLoadingDocs: false,
     version: '0.0.0',
   }
@@ -28,6 +30,26 @@ class Docs extends React.Component {
    */
   componentDidMount() {
     this.handleFetchDocs();
+  }
+
+  sortFunctionsByCategory = (functions) => {
+    const categories = {};
+
+    Object.keys(functions).forEach((key) => {
+      const funcCategories = functions[key] && functions[key].categories;
+
+      if (funcCategories) {
+        funcCategories.forEach((cat) => {
+          if (!categories[cat]) {
+            categories[cat] = [functions[key]];
+          }
+
+          categories[cat].push(functions[key]);
+        });
+      }
+    });
+
+    return categories;
   }
 
   /**
@@ -41,8 +63,12 @@ class Docs extends React.Component {
     try {
       const { data } = await getDocs(version);
 
+      const categories = this.sortFunctionsByCategory(data.docs);
+
       this.setState({
-        docs: data.docs,
+        docs: {
+          categories,
+        },
       });
     } catch (e) {
       // TODO: handle error from doc response
@@ -63,7 +89,7 @@ class Docs extends React.Component {
         <Header />
         <Sidebar
           isLoadingDocs={isLoadingDocs}
-          funcs={Object.keys(docs)}
+          funcs={docs.categories}
         />
         This is docs
       </div>
