@@ -1,5 +1,16 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const overrides = {
+  MuiInput: {
+    input: {
+      '&:hover:after': {
+        backgroundColor: 'transparent',
+        borderBottom: 'none',
+      },
+    },
+  },
+};
+
 export default createMuiTheme({
   palette: {
     primary: {
@@ -19,6 +30,7 @@ export default createMuiTheme({
     grey: {
       main: '#5C6975',
       secondary: '#ddd',
+      tertiary: '#999',
     },
     text: {
       main: '#666',
@@ -30,4 +42,5 @@ export default createMuiTheme({
     },
   },
   hovers: ['rgba(98, 114, 164, .2)'],
+  ...overrides,
 });

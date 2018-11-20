@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
+import Search from '../Search';
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -33,7 +35,6 @@ const styles = theme => ({
   },
   search: {
     flex: 4,
-    paddingLeft: 10,
   },
   icons: {
     flex: 1,
@@ -55,7 +56,7 @@ const Header = (props) => {
       </div>
       <div className={classes.mainContent}>
         <div className={classes.search}>
-          search
+          <Search />
         </div>
         <div className={classes.icons}>
           <span className={classes.icon}>Github</span>
