@@ -6,7 +6,7 @@ import Category from '../Category';
 
 const styles = theme => ({
   root: {
-    marginTop: 87.5,
+    marginTop: 80,
     overflow: 'auto',
     position: 'fixed',
     top: 0,

@@ -10,7 +10,8 @@ const styles = theme => ({
     boxShadow: theme.shadow.box.main,
     zIndex: 999,
     padding: '10px 0px',
-    maxHeight: 80,
+    maxHeight: 60,
+    height: 60,
     position: 'fixed',
     left: 0,
     right: 0,
@@ -21,8 +22,7 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: theme.palette.secondary.main,
-    fontSize: 50,
-    paddingTop: 10,
+    fontSize: 40,
   },
   mainContent: {
     height: '100%',
@@ -38,6 +38,7 @@ const styles = theme => ({
   icons: {
     flex: 1,
     justifySelf: 'end',
+    paddingRight: 10,
   },
   icon: {
     padding: '0px 20px',

@@ -8,6 +8,7 @@ const styles = theme => ({
   root: {
     padding: 10,
     display: 'block',
+    fontWeight: 400,
   },
 });
 
