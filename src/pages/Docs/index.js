@@ -41,7 +41,7 @@ class Docs extends React.Component {
       if (funcCategories) {
         funcCategories.forEach((cat) => {
           if (!categories[cat]) {
-            categories[cat] = [functions[key]];
+            categories[cat] = [];
           }
 
           categories[cat].push(functions[key]);
