@@ -18,6 +18,7 @@ export default createMuiTheme({
     },
     grey: {
       main: '#5C6975',
+      secondary: '#ddd',
     },
   },
   shadow: {
@@ -25,4 +26,5 @@ export default createMuiTheme({
       main: '0 1px 1px 0 rgba(116, 129, 141, 0.1)',
     },
   },
+  hovers: ['rgba(98, 114, 164, .2)'],
 });
