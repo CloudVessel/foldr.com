@@ -18,8 +18,6 @@ const mapFunctionsToComponents = props => (funcs = []) => funcs.map(func => (
 const Category = (props) => {
   const { name, classes, functions } = props;
 
-  console.log(functions);
-
   const mapFunctionsWithProps = mapFunctionsToComponents(props);
 
   return (
