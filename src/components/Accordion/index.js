@@ -12,6 +12,7 @@ const styles = theme => ({
   },
   details: {
     display: 'block',
+    marginTop: 20,
     overflow: 'auto',
   },
   panel: {
@@ -62,7 +63,7 @@ class Accordion extends React.Component {
             {title}
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
-            {innerText}
+            {isExpanded && innerText}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
