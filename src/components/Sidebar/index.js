@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-const mapCategoriesToLinks = () => (funcs = {}) =>
+const mapCategoriesToLinks = ({ onSelectedFunction }) => (funcs = {}) =>
   (Object.keys(funcs).length
     ? Object.keys(funcs).map(func => (
       <Category
@@ -26,6 +26,7 @@ const mapCategoriesToLinks = () => (funcs = {}) =>
         functions={funcs[func]}
         key={func}
         name={func}
+        onSelectedFunction={onSelectedFunction}
       />
     ))
     : []

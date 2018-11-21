@@ -12,8 +12,12 @@ const styles = theme => ({
   },
 });
 
-const mapFunctionsToComponents = props => (funcs = []) => funcs.map(func => (
-  <SubFunction name={func.name} />
+const mapFunctionsToComponents = ({ onSelectedFunction }) => (funcs = []) => funcs.map(func => (
+  <SubFunction
+    name={func.name}
+    func={func}
+    onSelectedFunction={onSelectedFunction}
+  />
 ));
 
 const Category = (props) => {
