@@ -23,6 +23,7 @@ class Docs extends React.Component {
     },
     isLoadingDocs: false,
     version: '0.0.0',
+    selectedFunction: null,
   }
 
   /**
@@ -51,6 +52,9 @@ class Docs extends React.Component {
 
     return categories;
   }
+
+  handleSelectedFunctionChange = selectedFunction => () =>
+    this.setState({ selectedFunction });
 
   /**
    *
@@ -81,17 +85,19 @@ class Docs extends React.Component {
    *
    */
   render() {
-    const { isLoadingDocs, docs } = this.state;
+    const { isLoadingDocs, docs, selectedFunction } = this.state;
     const { classes } = this.props;
+
+    console.log('selected', selectedFunction);
 
     return (
       <div className={classes.root}>
         <Header />
         <Sidebar
-          isLoadingDocs={isLoadingDocs}
           funcs={docs.categories}
+          isLoadingDocs={isLoadingDocs}
+          onSelectedFunction={this.handleSelectedFunctionChange}
         />
-        This is docs
       </div>
     );
   }

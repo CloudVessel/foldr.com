@@ -21,11 +21,15 @@ const styles = theme => ({
 });
 
 const Function = (props) => {
-  const { classes, name } = props;
+  const { classes, name, onSelectedFunction, func } = props;
 
   return (
     <div>
-      <button onClick={() => window.alert('hello')} tabIndex={0} className={classes.root}>
+      <button
+        onClick={onSelectedFunction(func)}
+        tabIndex={0}
+        className={classes.root}
+      >
         {name}
       </button>
     </div>

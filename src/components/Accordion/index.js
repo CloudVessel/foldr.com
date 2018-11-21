@@ -14,6 +14,7 @@ const styles = theme => ({
     display: 'block',
     marginTop: 20,
     overflow: 'auto',
+    padding: '5px 24px',
   },
   panel: {
     color: theme.palette.text.main,
