@@ -35,20 +35,26 @@ const styles = theme => ({
  *
  */
 class Accordion extends React.Component {
-  state = { isExpanded: false };
+  state = {
+    isExpanded: !!(this.props.isSearching),
+  };
 
   /**
-   * 
+   *
    */
   handleToggleExpansion = () =>
     this.setState(({ isExpanded }) => ({ isExpanded: !isExpanded }));
 
   /**
-   * 
+   *
    */
   render() {
     const { isExpanded } = this.state;
-    const { classes, innerText, title } = this.props;
+    const {
+      classes,
+      innerText,
+      title,
+    } = this.props;
 
     return (
       <div>

@@ -26,6 +26,7 @@ export default createMuiTheme({
     foreground: {
       main: '#F5F7F9',
       secondary: '#fff',
+      tertiary: '#282a36',
     },
     grey: {
       main: '#5C6975',
@@ -34,7 +35,11 @@ export default createMuiTheme({
     },
     text: {
       main: '#666',
+      secondary: '#bd93f9',
     },
+  },
+  structural: {
+    borderRadius: [2],
   },
   shadow: {
     box: {

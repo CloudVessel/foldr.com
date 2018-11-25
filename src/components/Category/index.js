@@ -21,7 +21,7 @@ const mapFunctionsToComponents = ({ onSelectedFunction }) => (funcs = []) => fun
 ));
 
 const Category = (props) => {
-  const { name, classes, functions } = props;
+  const { name, classes, functions, isSearching } = props;
 
   const mapFunctionsWithProps = mapFunctionsToComponents(props);
 
@@ -29,6 +29,7 @@ const Category = (props) => {
     <div className={classes.root}>
       <Accordion
         title={name}
+        isSearching={isSearching}
         innerText={mapFunctionsWithProps(functions)}
       />
     </div>
