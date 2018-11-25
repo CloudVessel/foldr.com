@@ -47,7 +47,7 @@ const styles = theme => ({
 });
 
 const Header = (props) => {
-  const { classes } = props;
+  const { classes, onFunctionSearch } = props;
 
   return (
     <div className={classes.root}>
@@ -56,7 +56,7 @@ const Header = (props) => {
       </div>
       <div className={classes.mainContent}>
         <div className={classes.search}>
-          <Search />
+          <Search onFunctionSearch={onFunctionSearch} />
         </div>
         <div className={classes.icons}>
           <span className={classes.icon}>Github</span>

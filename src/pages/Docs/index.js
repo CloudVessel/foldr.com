@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
+import Body from '../../components/Body';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import { getDocs } from '../../services/docs';
@@ -21,6 +22,8 @@ class Docs extends React.Component {
     docs: {
       categories: {},
     },
+    filteredCategories: {},
+    isSearching: false,
     isLoadingDocs: false,
     version: '0.0.0',
     selectedFunction: null,
@@ -51,6 +54,34 @@ class Docs extends React.Component {
     });
 
     return categories;
+  }
+
+  handleFunctionSearch = (term) => {
+    if (!term.length) {
+      return this.setState({
+        isSearching: false,
+      });
+    }
+
+    const { docs } = this.state;
+    const filteredCategories = { };
+
+    Object.keys(docs.categories).forEach((type) => {
+      docs.categories[type].forEach((func) => {
+        if (func.name.includes(term)) {
+          if (!filteredCategories[type]) {
+            filteredCategories[type] = [];
+          }
+
+          filteredCategories[type].push(func);
+        }
+      });
+    });
+
+    this.setState({
+      isSearching: true,
+      filteredCategories,
+    });
   }
 
   handleSelectedFunctionChange = selectedFunction => () =>
@@ -85,19 +116,27 @@ class Docs extends React.Component {
    *
    */
   render() {
-    const { isLoadingDocs, docs, selectedFunction } = this.state;
+    const {
+      docs,
+      isSearching,
+      isLoadingDocs,
+      selectedFunction,
+      filteredCategories,
+    } = this.state;
     const { classes } = this.props;
-
-    console.log('selected', selectedFunction);
 
     return (
       <div className={classes.root}>
-        <Header />
+        <Header
+          onFunctionSearch={this.handleFunctionSearch}
+        />
         <Sidebar
-          funcs={docs.categories}
+          isSearching={isSearching}
           isLoadingDocs={isLoadingDocs}
           onSelectedFunction={this.handleSelectedFunctionChange}
+          funcs={isSearching ? filteredCategories : docs.categories}
         />
+        <Body selectedFunction={selectedFunction} />
       </div>
     );
   }

@@ -18,14 +18,15 @@ const styles = theme => ({
   },
 });
 
-const mapCategoriesToLinks = ({ onSelectedFunction }) => (funcs = {}) =>
+const mapCategoriesToLinks = ({ onSelectedFunction, isSearching }) => (funcs = {}) =>
   (Object.keys(funcs).length
     ? Object.keys(funcs).map(func => (
       <Category
+        key={`${func}-${isSearching}`} // this ensures a new paint on every category mount
         text={func}
-        functions={funcs[func]}
-        key={func}
         name={func}
+        functions={funcs[func]}
+        isSearching={isSearching}
         onSelectedFunction={onSelectedFunction}
       />
     ))
