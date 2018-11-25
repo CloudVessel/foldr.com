@@ -60,6 +60,7 @@ class Docs extends React.Component {
     if (!term.length) {
       return this.setState({
         isSearching: false,
+        selectedFunction: null,
       });
     }
 
@@ -68,10 +69,12 @@ class Docs extends React.Component {
 
     Object.keys(docs.categories).forEach((type) => {
       docs.categories[type].forEach((func) => {
-        if (func.name.includes(term)) {
+        if (func.name.toLowerCase().includes(term.toLowerCase())) {
           if (!filteredCategories[type]) {
             filteredCategories[type] = [];
           }
+
+          this.handleSelectedFunctionChange(func)();
 
           filteredCategories[type].push(func);
         }
@@ -136,7 +139,9 @@ class Docs extends React.Component {
           onSelectedFunction={this.handleSelectedFunctionChange}
           funcs={isSearching ? filteredCategories : docs.categories}
         />
-        <Body selectedFunction={selectedFunction} />
+        <Body
+          selectedFunction={selectedFunction}
+        />
       </div>
     );
   }
