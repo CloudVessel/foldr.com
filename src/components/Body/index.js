@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { CSSTransition } from 'react-transition-group';
 
 const styles = theme => ({
   root: {
@@ -30,21 +31,38 @@ const styles = theme => ({
   },
 });
 
+/**
+ *
+ */
 class Body extends React.Component {
+  state = {};
+
+  /**
+   *
+   */
   render() {
     const { classes, selectedFunction = {} } = this.props;
 
     return (
       <div className={classes.root}>
-        {selectedFunction && (
-          <div className={classes.description}>
-            <h2 className={classes.title}>{selectedFunction.name}</h2>
-            <hr className={classes.divider} />
-            <div className={classes.code}>
-              const foo = 'bar'
-            </div>
-          </div>
-        )}
+        <CSSTransition
+          in={selectedFunction}
+          timeout={200}
+          classNames="fade"
+          unmountOnExit
+        >
+          <React.Fragment>
+            {selectedFunction && (
+              <div className={classes.description}>
+                <h2 className={classes.title}>{selectedFunction.name}</h2>
+                <hr className={classes.divider} />
+                <div className={classes.code}>
+                  const foo = 'bar'
+                </div>
+              </div>
+            )}
+          </React.Fragment>
+        </CSSTransition>
       </div>
     );
   }
