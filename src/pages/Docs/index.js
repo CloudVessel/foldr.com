@@ -81,7 +81,7 @@ class Docs extends React.Component {
       });
     });
 
-    this.setState({
+    return this.setState({
       isSearching: true,
       filteredCategories,
     });
