@@ -12,7 +12,7 @@ const styles = theme => ({
     color: theme.palette.text.main,
     border: 'none',
     width: '100%',
-    borderLeft: `1px solid ${theme.palette.grey.secondary}`,
+    borderLeft: `1px solid ${theme.palette.foreground.secondary}`,
     backgroundColor: 'transparent',
     '&:hover': {
       backgroundColor: theme.hovers[0],

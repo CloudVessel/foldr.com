@@ -23,10 +23,12 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginTop: 50,
     padding: '20px',
-    backgroundColor: theme.palette.foreground.tertiary,
+    backgroundColor: theme.palette.foreground.main,
     borderRadius: theme.structural.borderRadius[0],
   },
   divider: {
+    marginTop: 45,
+    border: '1px solid',
     borderColor: theme.palette.foreground.tertiary,
   },
 });
