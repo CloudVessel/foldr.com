@@ -18,15 +18,19 @@ const styles = theme => ({
  *
  */
 class Docs extends React.Component {
-  state = {
-    docs: {
-      categories: {},
-    },
-    filteredCategories: {},
-    isSearching: false,
-    isLoadingDocs: false,
-    version: '0.0.0',
-    selectedFunction: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      docs: {
+        categories: {},
+      },
+      filteredCategories: {},
+      isSearching: false,
+      isLoadingDocs: false,
+      version: '0.0.0',
+      selectedFunction: this.findSelectedFuncFromParams(),
+    };
   }
 
   /**
@@ -34,6 +38,14 @@ class Docs extends React.Component {
    */
   componentDidMount() {
     this.handleFetchDocs();
+  }
+
+  findSelectedFuncFromParams = () => {
+    console.log(this.props);
+
+    // console.log('here', router);
+
+    return null;
   }
 
   sortFunctionsByCategory = (functions) => {
@@ -126,6 +138,7 @@ class Docs extends React.Component {
       selectedFunction,
       filteredCategories,
     } = this.state;
+
     const { classes } = this.props;
 
     return (

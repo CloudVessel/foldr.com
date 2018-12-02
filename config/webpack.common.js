@@ -14,6 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'index.js',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -41,7 +42,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: 'index.html',
+      filename: './index.html',
       inject: false,
       minify: {
         collapseWhitespace: true,
@@ -52,8 +53,10 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'public/'),
+    inline: true,
+    hot: true,
     stats: 'errors-only',
     historyApiFallback: true,
+    contentBase: './public',
   },
 };

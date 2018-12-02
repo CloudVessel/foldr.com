@@ -26,7 +26,7 @@ const styles = theme => ({
     },
   },
   panelExpanded: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.main,
     backgroundColor: theme.palette.foreground.secondary,
   },
 });

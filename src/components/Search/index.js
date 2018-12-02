@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    borderLeft: '1px solid #ddd',
     display: 'flex',
     alignItems: 'center',
   },
