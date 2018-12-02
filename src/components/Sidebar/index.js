@@ -11,21 +11,23 @@ const styles = theme => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    height: '100vh',
+    height: 'calc(100vh - 80px)',
     backgroundColor: theme.palette.foreground.main,
     zIndex: 99,
     width: 300,
   },
 });
 
-const mapCategoriesToLinks = () => (funcs = {}) =>
+const mapCategoriesToLinks = ({ onSelectedFunction, isSearching }) => (funcs = {}) =>
   (Object.keys(funcs).length
     ? Object.keys(funcs).map(func => (
       <Category
+        key={`${func}-${isSearching}`} // this ensures a new paint on every category mount
         text={func}
-        functions={funcs[func]}
-        key={func}
         name={func}
+        functions={funcs[func]}
+        isSearching={isSearching}
+        onSelectedFunction={onSelectedFunction}
       />
     ))
     : []

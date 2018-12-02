@@ -12,7 +12,9 @@ const styles = theme => ({
   },
   details: {
     display: 'block',
+    marginTop: 20,
     overflow: 'auto',
+    padding: '5px 24px',
   },
   panel: {
     color: theme.palette.text.main,
@@ -24,7 +26,7 @@ const styles = theme => ({
     },
   },
   panelExpanded: {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.main,
     backgroundColor: theme.palette.foreground.secondary,
   },
 });
@@ -33,20 +35,26 @@ const styles = theme => ({
  *
  */
 class Accordion extends React.Component {
-  state = { isExpanded: false };
+  state = {
+    isExpanded: !!(this.props.isSearching),
+  };
 
   /**
-   * 
+   *
    */
   handleToggleExpansion = () =>
     this.setState(({ isExpanded }) => ({ isExpanded: !isExpanded }));
 
   /**
-   * 
+   *
    */
   render() {
     const { isExpanded } = this.state;
-    const { classes, innerText, title } = this.props;
+    const {
+      classes,
+      innerText,
+      title,
+    } = this.props;
 
     return (
       <div>
@@ -62,7 +70,7 @@ class Accordion extends React.Component {
             {title}
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
-            {innerText}
+            {isExpanded && innerText}
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

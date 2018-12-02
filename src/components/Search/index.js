@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    borderLeft: '1px solid #ddd',
     display: 'flex',
     alignItems: 'center',
   },
@@ -28,9 +27,16 @@ const styles = theme => ({
 class SearchComponent extends React.Component {
   state = { term: '' };
 
-  handleInputChange = ({ target }) => this.setState({
-    term: target.value,
-  });
+  handleInputChange = ({ target }) => {
+    const { value: term } = target;
+    const { onFunctionSearch } = this.props;
+
+    onFunctionSearch(term);
+
+    this.setState({
+      term,
+    });
+  }
 
   /**
    * 

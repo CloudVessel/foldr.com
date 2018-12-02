@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
+import Body from '../../components/Body';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import { getDocs } from '../../services/docs';
@@ -9,7 +10,7 @@ import { getDocs } from '../../services/docs';
 const styles = theme => ({
   root: {
     height: '100vh',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.foreground.secondary,
   },
 });
 
@@ -17,12 +18,19 @@ const styles = theme => ({
  *
  */
 class Docs extends React.Component {
-  state = {
-    docs: {
-      categories: {},
-    },
-    isLoadingDocs: false,
-    version: '0.0.0',
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      docs: {
+        categories: {},
+      },
+      filteredCategories: {},
+      isSearching: false,
+      isLoadingDocs: false,
+      version: '0.0.0',
+      selectedFunction: this.findSelectedFuncFromParams(),
+    };
   }
 
   /**
@@ -30,6 +38,14 @@ class Docs extends React.Component {
    */
   componentDidMount() {
     this.handleFetchDocs();
+  }
+
+  findSelectedFuncFromParams = () => {
+    console.log(this.props);
+
+    // console.log('here', router);
+
+    return null;
   }
 
   sortFunctionsByCategory = (functions) => {
@@ -51,6 +67,40 @@ class Docs extends React.Component {
 
     return categories;
   }
+
+  handleFunctionSearch = (term) => {
+    if (!term.length) {
+      return this.setState({
+        isSearching: false,
+        selectedFunction: null,
+      });
+    }
+
+    const { docs } = this.state;
+    const filteredCategories = { };
+
+    Object.keys(docs.categories).forEach((type) => {
+      docs.categories[type].forEach((func) => {
+        if (func.name.toLowerCase().includes(term.toLowerCase())) {
+          if (!filteredCategories[type]) {
+            filteredCategories[type] = [];
+          }
+
+          this.handleSelectedFunctionChange(func)();
+
+          filteredCategories[type].push(func);
+        }
+      });
+    });
+
+    return this.setState({
+      isSearching: true,
+      filteredCategories,
+    });
+  }
+
+  handleSelectedFunctionChange = selectedFunction => () =>
+    this.setState({ selectedFunction });
 
   /**
    *
@@ -81,17 +131,30 @@ class Docs extends React.Component {
    *
    */
   render() {
-    const { isLoadingDocs, docs } = this.state;
+    const {
+      docs,
+      isSearching,
+      isLoadingDocs,
+      selectedFunction,
+      filteredCategories,
+    } = this.state;
+
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
-        <Header />
-        <Sidebar
-          isLoadingDocs={isLoadingDocs}
-          funcs={docs.categories}
+        <Header
+          onFunctionSearch={this.handleFunctionSearch}
         />
-        This is docs
+        <Sidebar
+          isSearching={isSearching}
+          isLoadingDocs={isLoadingDocs}
+          onSelectedFunction={this.handleSelectedFunctionChange}
+          funcs={isSearching ? filteredCategories : docs.categories}
+        />
+        <Body
+          selectedFunction={selectedFunction}
+        />
       </div>
     );
   }
