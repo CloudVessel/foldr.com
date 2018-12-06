@@ -9,7 +9,7 @@ import { getDocs } from '../../services/docs';
 
 const styles = theme => ({
   root: {
-    height: '100vh',
+    minHeight: '100vh',
     backgroundColor: theme.palette.foreground.secondary,
   },
 });

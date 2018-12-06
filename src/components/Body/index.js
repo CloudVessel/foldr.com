@@ -1,4 +1,5 @@
 import React from 'react';
+import RunKit from 'react-runkit';
 import { withStyles } from '@material-ui/core/styles';
 import { CSSTransition } from 'react-transition-group';
 
@@ -20,8 +21,8 @@ const styles = theme => ({
   },
   code: {
     fontWeight: 100,
-    color: theme.palette.text.secondary,
-    marginTop: 50,
+    color: theme.palette.grey.secondary,
+    margin: '50px 0',
     padding: '20px',
     backgroundColor: theme.palette.foreground.main,
     borderRadius: theme.structural.borderRadius[0],
@@ -30,6 +31,16 @@ const styles = theme => ({
     marginTop: 45,
     border: '1px solid',
     borderColor: theme.palette.foreground.tertiary,
+  },
+  since: {
+    fontSize: 12,
+    marginLeft: 35,
+    color: theme.palette.grey.secondary,
+  },
+  version: {
+    marginLeft: 3,
+    fontSize: 12,
+    color: theme.palette.grey.secondary,
   },
 });
 
@@ -45,6 +56,8 @@ class Body extends React.Component {
   render() {
     const { classes, selectedFunction = {} } = this.props;
 
+    console.log(selectedFunction);
+
     return (
       <div className={classes.root}>
         <CSSTransition
@@ -56,11 +69,16 @@ class Body extends React.Component {
           <React.Fragment>
             {selectedFunction && (
               <div className={classes.description}>
-                <h2 className={classes.title}>{selectedFunction.name}</h2>
+                <h2 className={classes.title}>
+                  {selectedFunction.name}
+                  <span className={classes.since}>
+                    Since:
+                  </span>
+                  <span className={classes.version}>v{selectedFunction.since}</span>
+                </h2>
                 <hr className={classes.divider} />
-                <div className={classes.code}>
-                  const foo = 'bar'
-                </div>
+                <div className={classes.code} dangerouslySetInnerHTML={{ __html: selectedFunction.description }} />
+                <RunKit source={selectedFunction.examples[0]} />
               </div>
             )}
           </React.Fragment>
