@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Search from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core';
+import Close from '@material-ui/icons/Close';
 
 const styles = theme => ({
   root: {
@@ -19,12 +21,26 @@ const styles = theme => ({
   icon: {
     marginLeft: 25,
   },
+  form: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  clear: {
+    color: theme.palette.grey.tertiary,
+    border: 'none',
+    background: 'transparent',
+    cursor: 'pointer',
+  },
 });
 
 /**
  * 
  */
 class SearchComponent extends React.Component {
+  static propTypes = {
+    onFunctionSearch: PropTypes.func.isRequired,
+  }
+
   state = { term: '' };
 
   handleInputChange = ({ target }) => {
@@ -38,6 +54,20 @@ class SearchComponent extends React.Component {
     });
   }
 
+  handleClearInput = () => {
+    const { onFunctionSearch } = this.props;
+
+    onFunctionSearch('');
+
+    this.setState({
+      term: '',
+    });
+  }
+
+  handleSearchSubmit = ({ preventDefault }) => {
+    preventDefault();
+  }
+
   /**
    * 
    */
@@ -48,13 +78,23 @@ class SearchComponent extends React.Component {
     return (
       <div className={classes.root}>
         <Search className={classes.icon} />
-        <form onSubmit={this.handleSearchSubmit}>
+        <form className={classes.form} onSubmit={this.handleSearchSubmit}>
           <input
             value={term}
             onChange={this.handleInputChange}
             placeholder="Search.."
             className={classes.input}
           />
+          {term.length ? (
+            <button
+              type="submit"
+              tabIndex={0}
+              className={classes.clear}
+              onClick={this.handleClearInput}
+            >
+              <Close />
+            </button>
+          ) : null}
         </form>
       </div>
     );
