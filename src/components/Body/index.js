@@ -56,8 +56,6 @@ class Body extends React.Component {
   render() {
     const { classes, selectedFunction = {} } = this.props;
 
-    console.log(selectedFunction);
-
     return (
       <div className={classes.root}>
         <CSSTransition
