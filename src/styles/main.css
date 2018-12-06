@@ -21,3 +21,11 @@ body {
   opacity: 0.01;
   transition: opacity 200ms ease-in;
 }
+
+/*
+  Runkit overrides
+*/
+
+.CodeMirror-lines {
+  background: #282a36 !important;
+}
