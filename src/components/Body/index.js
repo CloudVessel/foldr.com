@@ -1,5 +1,6 @@
 import React from 'react';
 import RunKit from 'react-runkit';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { CSSTransition } from 'react-transition-group';
 
@@ -9,6 +10,10 @@ const styles = theme => ({
     marginLeft: 300,
     width: '100%',
     padding: '25px 100px',
+  },
+  main: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   description: {
     width: 700,
@@ -20,9 +25,10 @@ const styles = theme => ({
     borderLeft: `2px solid ${theme.palette.secondary.main}`,
   },
   code: {
+    flex: 1,
     fontWeight: 100,
     color: theme.palette.grey.secondary,
-    margin: '50px 0',
+    margin: '20px 0 35px 0',
     padding: '20px',
     backgroundColor: theme.palette.foreground.main,
     borderRadius: theme.structural.borderRadius[0],
@@ -45,27 +51,42 @@ const styles = theme => ({
 });
 
 /**
- *
+ * Component to render function / home information
+ * @returns {React.Component} - Body component
  */
 class Body extends React.Component {
+  static propTypes = {
+    classes: PropTypes.shape({}).isRequired,
+    selectedFunction: PropTypes.shape({
+      name: PropTypes.string,
+      since: PropTypes.string,
+      description: PropTypes.string,
+      examples: PropTypes.array,
+    }),
+  }
+
+  static defaultProps = {
+    selectedFunction: {},
+  }
+
   state = {};
 
   /**
-   *
+   * @inheritDoc
    */
   render() {
-    const { classes, selectedFunction = {} } = this.props;
+    const { classes, selectedFunction } = this.props;
 
     return (
       <div className={classes.root}>
         <CSSTransition
-          in={selectedFunction}
+          in={Boolean(selectedFunction)}
           timeout={200}
           classNames="fade"
           unmountOnExit
         >
           <React.Fragment>
-            {selectedFunction && (
+            {selectedFunction ? (
               <div className={classes.description}>
                 <h2 className={classes.title}>
                   {selectedFunction.name}
@@ -75,8 +96,17 @@ class Body extends React.Component {
                   <span className={classes.version}>v{selectedFunction.since}</span>
                 </h2>
                 <hr className={classes.divider} />
-                <div className={classes.code} dangerouslySetInnerHTML={{ __html: selectedFunction.description }} />
+                <div className={classes.main}>
+                  <div
+                    className={classes.code}
+                    dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
+                  />
+                </div>
                 <RunKit source={selectedFunction.examples[0]} />
+              </div>
+            ) : (
+              <div>
+                Home page information rendered here
               </div>
             )}
           </React.Fragment>

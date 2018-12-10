@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 
 import Loading from '../Loading';
@@ -18,8 +19,8 @@ const styles = theme => ({
   },
 });
 
-const mapCategoriesToLinks = ({ onSelectedFunction, isSearching }) => (funcs = {}) =>
-  (Object.keys(funcs).length
+const mapCategoriesToLinks = ({ onSelectedFunction, isSearching, selectedFunction }) =>
+  (funcs = {}) => (Object.keys(funcs).length
     ? Object.keys(funcs).map(func => (
       <Category
         key={`${func}-${isSearching}`} // this ensures a new paint on every category mount
@@ -28,6 +29,7 @@ const mapCategoriesToLinks = ({ onSelectedFunction, isSearching }) => (funcs = {
         functions={funcs[func]}
         isSearching={isSearching}
         onSelectedFunction={onSelectedFunction}
+        selectedFunction={selectedFunction}
       />
     ))
     : []
@@ -47,6 +49,12 @@ const Sidebar = (props) => {
       }
     </div>
   );
+};
+
+Sidebar.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
+  isLoadingDocs: PropTypes.bool.isRequired,
+  funcs: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(styles)(Sidebar);

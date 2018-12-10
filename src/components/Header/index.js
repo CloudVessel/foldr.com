@@ -71,7 +71,7 @@ const Header = (props) => {
   return (
     <div className={classes.root}>
       <div className={classes.title}>
-        <Link exact to="/" className={classes.titleText}>foldr</Link>
+        <Link to="/" className={classes.titleText}>foldr</Link>
         <span className={classes.version}>1.0.0</span>
       </div>
       <div className={classes.mainContent}>
