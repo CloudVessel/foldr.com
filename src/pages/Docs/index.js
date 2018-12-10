@@ -28,9 +28,6 @@ class Docs extends React.Component {
    * The Doc component constructor
    * @param {Object} props - component props
    */
- *
- */
-class Docs extends React.Component {
   constructor(props) {
     super(props);
 

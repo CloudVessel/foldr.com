@@ -111,9 +111,6 @@ class Body extends React.Component {
               <div>
                 Home page information rendered here
               </div>
-                <div className={classes.code} dangerouslySetInnerHTML={{ __html: selectedFunction.description }} />
-                <RunKit source={selectedFunction.examples[0]} />
-              </div>
             )}
           </React.Fragment>
         </CSSTransition>
