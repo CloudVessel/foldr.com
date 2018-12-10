@@ -52,6 +52,9 @@ const FunctionName = (props) => {
         onClick={onSelectedFunction(func)}
         tabIndex={0}
         className={isCurrentlySelected ? classes.rootSelected : classes.root}
+        onClick={onSelectedFunction(func)}
+        tabIndex={0}
+        className={classes.root}
       >
         {name}
       </button>

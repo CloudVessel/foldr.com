@@ -29,6 +29,9 @@ const styles = theme => ({
     fontWeight: 100,
     color: theme.palette.grey.secondary,
     margin: '20px 0 35px 0',
+    fontWeight: 100,
+    color: theme.palette.grey.secondary,
+    margin: '50px 0',
     padding: '20px',
     backgroundColor: theme.palette.foreground.main,
     borderRadius: theme.structural.borderRadius[0],
@@ -107,6 +110,9 @@ class Body extends React.Component {
             ) : (
               <div>
                 Home page information rendered here
+              </div>
+                <div className={classes.code} dangerouslySetInnerHTML={{ __html: selectedFunction.description }} />
+                <RunKit source={selectedFunction.examples[0]} />
               </div>
             )}
           </React.Fragment>
