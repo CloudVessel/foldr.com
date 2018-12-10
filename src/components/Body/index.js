@@ -8,30 +8,35 @@ const styles = theme => ({
   root: {
     paddingTop: 100,
     marginLeft: 300,
-    width: '100%',
-    padding: '25px 100px',
+    width: 'calc(100% - 300px)',
+    maxWidth: 'calc(100% - 300px)',
   },
   main: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   description: {
+    padding: '25px 100px',
     width: 700,
     maxWidth: 700,
+  },
+  params: {
+    flexBasis: 500,
   },
   title: {
     color: theme.palette.secondary.main,
     padding: '10px 25px',
     borderLeft: `2px solid ${theme.palette.secondary.main}`,
   },
+  paramsTitle: {
+    color: theme.palette.secondary.main,
+  },
   code: {
     flex: 1,
+    flexBasis: 500,
     fontWeight: 100,
     color: theme.palette.grey.secondary,
     margin: '20px 0 35px 0',
-    fontWeight: 100,
-    color: theme.palette.grey.secondary,
-    margin: '50px 0',
     padding: '20px',
     backgroundColor: theme.palette.foreground.main,
     borderRadius: theme.structural.borderRadius[0],
@@ -80,6 +85,8 @@ class Body extends React.Component {
   render() {
     const { classes, selectedFunction } = this.props;
 
+    console.log(selectedFunction);
+
     return (
       <div className={classes.root}>
         <CSSTransition
@@ -104,6 +111,9 @@ class Body extends React.Component {
                     className={classes.code}
                     dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
                   />
+                  <div className={classes.paramsTitle}>
+                    <h3>Params</h3>
+                  </div>
                 </div>
                 <RunKit source={selectedFunction.examples[0]} />
               </div>
