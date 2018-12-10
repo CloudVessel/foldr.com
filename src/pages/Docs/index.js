@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -15,9 +16,18 @@ const styles = theme => ({
 });
 
 /**
- *
+ * Docs Component
+ * @returns {React.Component} - Docs
  */
 class Docs extends React.Component {
+  static propTypes = {
+    classes: PropTypes.shape({}).isRequired,
+  }
+
+  /**
+   * The Doc component constructor
+   * @param {Object} props - component props
+   */
   constructor(props) {
     super(props);
 
@@ -34,7 +44,8 @@ class Docs extends React.Component {
   }
 
   /**
-   *
+   * Handles fetching the documentation JSON file after initial mount
+   * @returns {void}
    */
   componentDidMount() {
     this.handleFetchDocs();
@@ -43,11 +54,14 @@ class Docs extends React.Component {
   findSelectedFuncFromParams = () => {
     console.log(this.props);
 
-    // console.log('here', router);
-
     return null;
   }
 
+  /**
+   * Sorts functions by their categories
+   * @param {Object} functions - object of functions
+   * @returns {Object} - object with nested category arrays
+   */
   sortFunctionsByCategory = (functions) => {
     const categories = {};
 
@@ -68,6 +82,11 @@ class Docs extends React.Component {
     return categories;
   }
 
+  /**
+   * Handler for function search functionality
+   * @param {string} term - the search term
+   * @returns {void}
+   */
   handleFunctionSearch = (term) => {
     if (!term.length) {
       return this.setState({
@@ -99,11 +118,17 @@ class Docs extends React.Component {
     });
   }
 
+  /**
+   * Sets the state of the selected function
+   * @param {Object} selectedFunction - the selected function
+   * @returns {void}
+   */
   handleSelectedFunctionChange = selectedFunction => () =>
     this.setState({ selectedFunction });
 
   /**
-   *
+   * Fetches documentation JSON file
+   * @returns {void}
    */
   handleFetchDocs = async () => {
     const { version } = this.state;
@@ -128,7 +153,7 @@ class Docs extends React.Component {
   };
 
   /**
-   *
+   * @inheritDoc
    */
   render() {
     const {
@@ -151,6 +176,7 @@ class Docs extends React.Component {
           isLoadingDocs={isLoadingDocs}
           onSelectedFunction={this.handleSelectedFunctionChange}
           funcs={isSearching ? filteredCategories : docs.categories}
+          selectedFunction={selectedFunction}
         />
         <Body
           selectedFunction={selectedFunction}
