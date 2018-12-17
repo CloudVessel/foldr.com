@@ -17,7 +17,6 @@ const styles = theme => ({
   },
   description: {
     padding: '25px 100px',
-    width: 700,
     maxWidth: 700,
   },
   params: {

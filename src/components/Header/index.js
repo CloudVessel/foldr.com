@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
 import Search from '../Search';
 
@@ -19,6 +20,7 @@ const styles = theme => ({
     right: 0,
   },
   title: {
+    position: 'relative',
     height: '100%',
     width: 300,
     display: 'flex',
@@ -33,8 +35,14 @@ const styles = theme => ({
     fontSize: 40,
   },
   version: {
+    background: 'transparent',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
     fontSize: 20,
     marginLeft: 20,
+    color: theme.palette.text.tertiary,
+    cursor: 'pointer',
   },
   mainContent: {
     height: '100%',
@@ -63,38 +71,79 @@ const styles = theme => ({
       borderBottom: `1px solid ${theme.palette.secondary.main}`,
     },
   },
+  arrowDown: {
+    paddingBottom: 5,
+  },
+  select: {
+    position: 'absolute',
+    right: 0,
+  },
 });
 
-const Header = (props) => {
-  const { classes, onFunctionSearch } = props;
+/**
+ * 
+ */
+class Header extends React.Component {
+  anchorRef = null;
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.title}>
-        <Link to="/" className={classes.titleText}>foldr</Link>
-        <span className={classes.version}>1.0.0</span>
-      </div>
-      <div className={classes.mainContent}>
-        <div className={classes.search}>
-          <Search onFunctionSearch={onFunctionSearch} />
+  state = {
+    isVersionSelectOpen: false,
+  };
+
+  handleToggleVersionSelect = () => this.setState(({ isVersionSelectOpen }) => ({
+    isVersionSelectOpen: !isVersionSelectOpen,
+  }));
+
+  /**
+   * @inheritDoc
+   */
+  render() {
+    const { isVersionSelectOpen } = this.state;
+    const { classes, onFunctionSearch } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.title}>
+          <Link to="/" className={classes.titleText}>foldr</Link>
+          <button
+            onClick={this.handleToggleVersionSelect}
+            onKeyPress={this.handleToggleVersionSelect}
+            ref={this.anchorRef}
+            type="button"
+            className={classes.version}
+          >
+            1.0.0
+            <ArrowDropDown className={classes.arrowDown} />
+          </button>
+          {isVersionSelectOpen && (
+            <select
+              className={classes.select}
+              options={['Hello', 'There']}
+            />
+          )}
         </div>
-        <div className={classes.icons}>
-          <span className={classes.icon}>
-            <a
-              className={classes.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/CloudVessel/foldr.com"
-            >
-              GitHub
-            </a>
-          </span>
-          <span className={classes.icon}>Slack</span>
-          <span className={classes.icon}>Twitter</span>
+        <div className={classes.mainContent}>
+          <div className={classes.search}>
+            <Search onFunctionSearch={onFunctionSearch} />
+          </div>
+          <div className={classes.icons}>
+            <span className={classes.icon}>
+              <a
+                className={classes.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/CloudVessel/foldr.com"
+              >
+                GitHub
+              </a>
+            </span>
+            <span className={classes.icon}>Slack</span>
+            <span className={classes.icon}>Twitter</span>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default withStyles(styles)(Header);
