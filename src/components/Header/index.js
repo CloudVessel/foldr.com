@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
@@ -75,8 +76,11 @@ const styles = theme => ({
     paddingBottom: 5,
   },
   select: {
-    position: 'absolute',
-    right: 0,
+    color: theme.palette.grey.main,
+    position: 'absolute !important',
+    right: 15,
+    bottom: 22,
+    width: 125,
   },
 });
 
@@ -90,9 +94,14 @@ class Header extends React.Component {
     isVersionSelectOpen: false,
   };
 
-  handleToggleVersionSelect = () => this.setState(({ isVersionSelectOpen }) => ({
-    isVersionSelectOpen: !isVersionSelectOpen,
-  }));
+  handleToggleVersionSelect = () =>
+    this.setState(({ isVersionSelectOpen }) => ({
+      isVersionSelectOpen: !isVersionSelectOpen,
+    }));
+
+  handleVersionSelectChange = () => this.setState({
+
+  }, this.handleToggleVersionSelect);
 
   /**
    * @inheritDoc
@@ -116,9 +125,10 @@ class Header extends React.Component {
             <ArrowDropDown className={classes.arrowDown} />
           </button>
           {isVersionSelectOpen && (
-            <select
+            <Select
+              onChange={this.handleVersionSelectChange}
               className={classes.select}
-              options={['Hello', 'There']}
+              options={[{ label: '1.0.0', value: '1.0.0' }, { label: '2.0.0', value: '2.0.0' }]}
             />
           )}
         </div>
@@ -144,6 +154,6 @@ class Header extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default withStyles(styles)(Header);
