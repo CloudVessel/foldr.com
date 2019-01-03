@@ -115,20 +115,22 @@ class Body extends React.Component {
                     className={classes.code}
                     dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
                   />
-                  <div className={classes.paramsTitle}>
-                    <h3>Params</h3>
-                    <div className={classes.code}>
-                      {selectedFunction && selectedFunction.params && selectedFunction.params.map((param, ind) => (
-                        <div>
-                          <span className={classes.paramIndex}>{ind + 1}:</span>
-                          <span>{param.name}</span>
-                          <div className={classes.params}>
-                            <span dangerouslySetInnerHTML={{ __html: param.description }} />
+                  {selectedFunction && selectedFunction.params && selectedFunction.params.length && (
+                    <div className={classes.paramsTitle}>
+                      <h3>Params</h3>
+                      <div className={classes.code}>
+                        {selectedFunction && selectedFunction.params && selectedFunction.params.map((param, ind) => (
+                          <div>
+                            <span className={classes.paramIndex}>{ind + 1}:</span>
+                            <span>{param.name}</span>
+                            <div className={classes.params}>
+                              <span dangerouslySetInnerHTML={{ __html: param.description }} />
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 <RunKit source={selectedFunction.examples[0]} />
               </div>
