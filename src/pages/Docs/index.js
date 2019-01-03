@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Body from '../../components/Body';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { getDocs, getVerions } from '../../services/docs';
+import { getDocs, getVersions } from '../../services/docs';
 
 const styles = theme => ({
   root: {
@@ -137,7 +137,7 @@ class Docs extends React.Component {
     this.setState({ isLoadingDocs: true });
 
     try {
-      const [docData, versionData] = await Promise.all([getDocs(version), getVerions()]);
+      const [docData, versionData] = await Promise.all([getDocs(version), getVersions()]);
 
       const categories = this.sortFunctionsByCategory(docData.data.docs);
 

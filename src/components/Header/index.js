@@ -44,6 +44,7 @@ const styles = theme => ({
     marginLeft: 20,
     color: theme.palette.text.tertiary,
     cursor: 'pointer',
+    outline: 'none',
   },
   mainContent: {
     height: '100%',
@@ -92,6 +93,7 @@ class Header extends React.Component {
 
   state = {
     isVersionSelectOpen: false,
+    selectedVersion: { label: '1.0.0', value: '1.0.0' },
   };
 
   handleToggleVersionSelect = () =>
@@ -99,15 +101,15 @@ class Header extends React.Component {
       isVersionSelectOpen: !isVersionSelectOpen,
     }));
 
-  handleVersionSelectChange = () => this.setState({
-
+  handleVersionSelectChange = selectedVersion => this.setState({
+    selectedVersion,
   }, this.handleToggleVersionSelect);
 
   /**
    * @inheritDoc
    */
   render() {
-    const { isVersionSelectOpen } = this.state;
+    const { isVersionSelectOpen, selectedVersion } = this.state;
     const { classes, onFunctionSearch } = this.props;
 
     return (
@@ -121,11 +123,12 @@ class Header extends React.Component {
             type="button"
             className={classes.version}
           >
-            1.0.0
+            {selectedVersion.label}
             <ArrowDropDown className={classes.arrowDown} />
           </button>
           {isVersionSelectOpen && (
             <Select
+              value={selectedVersion}
               onChange={this.handleVersionSelectChange}
               className={classes.select}
               options={[{ label: '1.0.0', value: '1.0.0' }, { label: '2.0.0', value: '2.0.0' }]}
