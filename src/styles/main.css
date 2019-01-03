@@ -2,6 +2,11 @@ body {
   font-family: 'Fira Sans', sans-serif !important;
 }
 
+a {
+  color: #8e85e5;
+  text-decoration: none
+}
+
 .fade-enter {
   opacity: 0.01;
   transition: opacity 200ms ease-in;

@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Body from '../../components/Body';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { getDocs } from '../../services/docs';
+import { getDocs, getVersions } from '../../services/docs';
 
 const styles = theme => ({
   root: {
@@ -40,6 +40,7 @@ class Docs extends React.Component {
       isLoadingDocs: false,
       version: '0.0.0',
       selectedFunction: this.findSelectedFuncFromParams(),
+      versions: [],
     };
   }
 
@@ -136,14 +137,15 @@ class Docs extends React.Component {
     this.setState({ isLoadingDocs: true });
 
     try {
-      const { data } = await getDocs(version);
+      const [docData, versionData] = await Promise.all([getDocs(version), getVersions()]);
 
-      const categories = this.sortFunctionsByCategory(data.docs);
+      const categories = this.sortFunctionsByCategory(docData.data.docs);
 
       this.setState({
         docs: {
           categories,
         },
+        versions: versionData.data.versions,
       });
     } catch (e) {
       // TODO: handle error from doc response

@@ -1,6 +1,8 @@
 import React from 'react';
+import Select from 'react-select';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
 import Search from '../Search';
 
@@ -19,6 +21,7 @@ const styles = theme => ({
     right: 0,
   },
   title: {
+    position: 'relative',
     height: '100%',
     width: 300,
     display: 'flex',
@@ -33,8 +36,15 @@ const styles = theme => ({
     fontSize: 40,
   },
   version: {
+    background: 'transparent',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
     fontSize: 20,
     marginLeft: 20,
+    color: theme.palette.text.tertiary,
+    cursor: 'pointer',
+    outline: 'none',
   },
   mainContent: {
     height: '100%',
@@ -63,38 +73,90 @@ const styles = theme => ({
       borderBottom: `1px solid ${theme.palette.secondary.main}`,
     },
   },
+  arrowDown: {
+    paddingBottom: 5,
+  },
+  select: {
+    color: theme.palette.grey.main,
+    position: 'absolute !important',
+    right: 15,
+    bottom: 22,
+    width: 125,
+  },
 });
 
-const Header = (props) => {
-  const { classes, onFunctionSearch } = props;
+/**
+ * 
+ */
+class Header extends React.Component {
+  anchorRef = null;
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.title}>
-        <Link to="/" className={classes.titleText}>foldr</Link>
-        <span className={classes.version}>1.0.0</span>
-      </div>
-      <div className={classes.mainContent}>
-        <div className={classes.search}>
-          <Search onFunctionSearch={onFunctionSearch} />
+  state = {
+    isVersionSelectOpen: false,
+    selectedVersion: { label: '1.0.0', value: '1.0.0' },
+  };
+
+  handleToggleVersionSelect = () =>
+    this.setState(({ isVersionSelectOpen }) => ({
+      isVersionSelectOpen: !isVersionSelectOpen,
+    }));
+
+  handleVersionSelectChange = selectedVersion => this.setState({
+    selectedVersion,
+  }, this.handleToggleVersionSelect);
+
+  /**
+   * @inheritDoc
+   */
+  render() {
+    const { isVersionSelectOpen, selectedVersion } = this.state;
+    const { classes, onFunctionSearch } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.title}>
+          <Link to="/" className={classes.titleText}>foldr</Link>
+          <button
+            onClick={this.handleToggleVersionSelect}
+            onKeyPress={this.handleToggleVersionSelect}
+            ref={this.anchorRef}
+            type="button"
+            className={classes.version}
+          >
+            {selectedVersion.label}
+            <ArrowDropDown className={classes.arrowDown} />
+          </button>
+          {isVersionSelectOpen && (
+            <Select
+              value={selectedVersion}
+              onChange={this.handleVersionSelectChange}
+              className={classes.select}
+              options={[{ label: '1.0.0', value: '1.0.0' }, { label: '2.0.0', value: '2.0.0' }]}
+            />
+          )}
         </div>
-        <div className={classes.icons}>
-          <span className={classes.icon}>
-            <a
-              className={classes.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/CloudVessel/foldr.com"
-            >
-              GitHub
-            </a>
-          </span>
-          <span className={classes.icon}>Slack</span>
-          <span className={classes.icon}>Twitter</span>
+        <div className={classes.mainContent}>
+          <div className={classes.search}>
+            <Search onFunctionSearch={onFunctionSearch} />
+          </div>
+          <div className={classes.icons}>
+            <span className={classes.icon}>
+              <a
+                className={classes.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/CloudVessel/foldr.com"
+              >
+                GitHub
+              </a>
+            </span>
+            <span className={classes.icon}>Slack</span>
+            <span className={classes.icon}>Twitter</span>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default withStyles(styles)(Header);
