@@ -8,9 +8,9 @@ const NotFound = withLazyLoad(() => import('./pages/NotFound'));
 
 const Router = () => (
   <Switch>
-    <Route path="/" component={Docs} />
-    <Route path="/:version" component={Docs} />
-    <Route path="/:version/:name" component={Docs} />
+    <Route exact path="/" render={() => <Docs />} />
+    <Route exact path="/foo" render={() => <Docs />} />
+    <Route exact path="/:version/:name" render={() => <Docs />} />
   </Switch>
 );
 
