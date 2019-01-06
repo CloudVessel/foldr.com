@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
@@ -101,9 +101,18 @@ class Header extends React.Component {
       isVersionSelectOpen: !isVersionSelectOpen,
     }));
 
-  handleVersionSelectChange = selectedVersion => this.setState({
-    selectedVersion,
-  }, this.handleToggleVersionSelect);
+  handleHistoryChange = () => {
+    const { selectedVersion } = this.state;
+    const { history } = this.props;
+
+    history.push(selectedVersion.value);
+  }
+
+  handleVersionSelectChange = selectedVersion =>
+    this.setState(({ isVersionSelectOpen }) => ({
+      selectedVersion,
+      isVersionSelectOpen: !isVersionSelectOpen,
+    }), this.handleHistoryChange);
 
   /**
    * @inheritDoc
@@ -159,4 +168,4 @@ class Header extends React.Component {
   }
 }
 
-export default withStyles(styles)(Header);
+export default withRouter(withStyles(styles)(Header));

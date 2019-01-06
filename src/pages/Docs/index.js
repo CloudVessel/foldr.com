@@ -119,13 +119,28 @@ class Docs extends React.Component {
     });
   }
 
+  replaceImportWithRequire = (selectedFunction) => {
+    const examples = selectedFunction.examples.map((example) => {
+      const newEx = example.replace('import', 'const');
+
+      return `${newEx.slice(0, newEx.indexOf('from'))}= require('@foldr/all'); ${newEx.slice(newEx.indexOf('\n'))}`;
+    });
+
+    return {
+      ...selectedFunction,
+      examples,
+    };
+  }
+
   /**
    * Sets the state of the selected function
    * @param {Object} selectedFunction - the selected function
    * @returns {void}
    */
   handleSelectedFunctionChange = selectedFunction => () =>
-    this.setState({ selectedFunction });
+    this.setState({
+      selectedFunction: this.replaceImportWithRequire(selectedFunction),
+    });
 
   /**
    * Fetches documentation JSON file
