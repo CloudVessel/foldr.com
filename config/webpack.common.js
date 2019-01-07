@@ -14,7 +14,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'index.js',
-    publicPath: '/',
   },
   module: {
     rules: [
@@ -56,7 +55,9 @@ module.exports = {
     inline: true,
     hot: true,
     stats: 'errors-only',
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
     contentBase: './public',
   },
 };

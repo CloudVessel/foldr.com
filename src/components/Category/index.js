@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SubFunction from '../Function';
 import Accordion from '../Accordion';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     padding: 10,
     display: 'block',
@@ -12,16 +12,24 @@ const styles = theme => ({
   },
 });
 
-const mapFunctionsToComponents = ({ onSelectedFunction }) => (funcs = []) => funcs.map(func => (
-  <SubFunction
-    name={func.name}
-    func={func}
-    onSelectedFunction={onSelectedFunction}
-  />
-));
+const mapFunctionsToComponents = ({ onSelectedFunction, selectedFunction }) =>
+  (funcs = []) => funcs.map(func => (
+    <SubFunction
+      key={func.name}
+      name={func.name}
+      func={func}
+      onSelectedFunction={onSelectedFunction}
+      selectedFunction={selectedFunction}
+    />
+  ));
 
 const Category = (props) => {
-  const { name, classes, functions, isSearching } = props;
+  const {
+    name,
+    classes,
+    functions,
+    isSearching,
+  } = props;
 
   const mapFunctionsWithProps = mapFunctionsToComponents(props);
 

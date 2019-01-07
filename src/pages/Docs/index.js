@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 import Body from '../../components/Body';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { getDocs } from '../../services/docs';
+import { getDocs, getVersions } from '../../services/docs';
 
 const styles = theme => ({
   root: {
@@ -15,9 +16,18 @@ const styles = theme => ({
 });
 
 /**
- *
+ * Docs Component
+ * @returns {React.Component} - Docs
  */
 class Docs extends React.Component {
+  static propTypes = {
+    classes: PropTypes.shape({}).isRequired,
+  }
+
+  /**
+   * The Doc component constructor
+   * @param {Object} props - component props
+   */
   constructor(props) {
     super(props);
 
@@ -30,11 +40,13 @@ class Docs extends React.Component {
       isLoadingDocs: false,
       version: '0.0.0',
       selectedFunction: this.findSelectedFuncFromParams(),
+      versions: [],
     };
   }
 
   /**
-   *
+   * Handles fetching the documentation JSON file after initial mount
+   * @returns {void}
    */
   componentDidMount() {
     this.handleFetchDocs();
@@ -43,11 +55,14 @@ class Docs extends React.Component {
   findSelectedFuncFromParams = () => {
     console.log(this.props);
 
-    // console.log('here', router);
-
     return null;
   }
 
+  /**
+   * Sorts functions by their categories
+   * @param {Object} functions - object of functions
+   * @returns {Object} - object with nested category arrays
+   */
   sortFunctionsByCategory = (functions) => {
     const categories = {};
 
@@ -68,6 +83,11 @@ class Docs extends React.Component {
     return categories;
   }
 
+  /**
+   * Handler for function search functionality
+   * @param {string} term - the search term
+   * @returns {void}
+   */
   handleFunctionSearch = (term) => {
     if (!term.length) {
       return this.setState({
@@ -99,11 +119,32 @@ class Docs extends React.Component {
     });
   }
 
-  handleSelectedFunctionChange = selectedFunction => () =>
-    this.setState({ selectedFunction });
+  replaceImportWithRequire = (selectedFunction) => {
+    const examples = selectedFunction.examples.map((example) => {
+      const newEx = example.replace('import', 'const');
+
+      return `${newEx.slice(0, newEx.indexOf('from'))}= require('@foldr/all'); ${newEx.slice(newEx.indexOf('\n'))}`;
+    });
+
+    return {
+      ...selectedFunction,
+      examples,
+    };
+  }
 
   /**
-   *
+   * Sets the state of the selected function
+   * @param {Object} selectedFunction - the selected function
+   * @returns {void}
+   */
+  handleSelectedFunctionChange = selectedFunction => () =>
+    this.setState({
+      selectedFunction: this.replaceImportWithRequire(selectedFunction),
+    });
+
+  /**
+   * Fetches documentation JSON file
+   * @returns {void}
    */
   handleFetchDocs = async () => {
     const { version } = this.state;
@@ -111,14 +152,15 @@ class Docs extends React.Component {
     this.setState({ isLoadingDocs: true });
 
     try {
-      const { data } = await getDocs(version);
+      const [docData, versionData] = await Promise.all([getDocs(version), getVersions()]);
 
-      const categories = this.sortFunctionsByCategory(data.docs);
+      const categories = this.sortFunctionsByCategory(docData.data.docs);
 
       this.setState({
         docs: {
           categories,
         },
+        versions: versionData.data.versions,
       });
     } catch (e) {
       // TODO: handle error from doc response
@@ -128,7 +170,7 @@ class Docs extends React.Component {
   };
 
   /**
-   *
+   * @inheritDoc
    */
   render() {
     const {
@@ -151,6 +193,7 @@ class Docs extends React.Component {
           isLoadingDocs={isLoadingDocs}
           onSelectedFunction={this.handleSelectedFunctionChange}
           funcs={isSearching ? filteredCategories : docs.categories}
+          selectedFunction={selectedFunction}
         />
         <Body
           selectedFunction={selectedFunction}
