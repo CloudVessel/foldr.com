@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { CSSTransition } from 'react-transition-group';
 
+import Home from '../Home';
+
 const styles = theme => ({
   root: {
     paddingTop: 100,
@@ -87,58 +89,69 @@ class Body extends React.Component {
    * @inheritDoc
    */
   render() {
-    const { classes, selectedFunction } = this.props;
+    const { classes, selectedFunction = {} } = this.props;
 
     return (
       <div className={classes.root}>
-        <CSSTransition
-          in={Boolean(selectedFunction)}
-          timeout={200}
-          classNames="fade"
-          unmountOnExit
-        >
-          <React.Fragment>
-            {selectedFunction ? (
-              <div className={classes.description}>
-                <h2 className={classes.title}>
-                  {selectedFunction.name}
-                  <span className={classes.since}>
-                    Since:
-                  </span>
-                  <span className={classes.version}>v{selectedFunction.since}</span>
-                </h2>
-                <hr className={classes.divider} />
-                <div className={classes.main}>
-                  <div
-                    className={classes.code}
-                    dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
-                  />
-                  {selectedFunction && selectedFunction.params && selectedFunction.params.length && (
-                    <div className={classes.paramsTitle}>
-                      <h3>Params</h3>
-                      <div className={classes.code}>
-                        {selectedFunction && selectedFunction.params && selectedFunction.params.map((param, ind) => (
-                          <div>
-                            <span className={classes.paramIndex}>{ind + 1}:</span>
-                            <span>{param.name}</span>
-                            <div className={classes.params}>
-                              <span dangerouslySetInnerHTML={{ __html: param.description }} />
-                            </div>
+        <React.Fragment>
+          <CSSTransition
+            in={Boolean(selectedFunction)}
+            timeout={200}
+            classNames="fade"
+            unmountOnExit
+          >
+            <React.Fragment>
+              {
+                selectedFunction && (
+                  <div className={classes.description}>
+                    <h2 className={classes.title}>
+                      {selectedFunction.name}
+                      <span className={classes.since}>
+                        Since:
+                      </span>
+                      <span className={classes.version}>
+                        v
+                        {selectedFunction.since}
+                      </span>
+                    </h2>
+                    <hr className={classes.divider} />
+                    <div className={classes.main}>
+                      <div
+                        className={classes.code}
+                        dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
+                      />
+                      {selectedFunction
+                        && selectedFunction.params
+                        && selectedFunction.params.length && (
+                        <div className={classes.paramsTitle}>
+                          <h3>Params</h3>
+                          <div className={classes.code}>
+                            {selectedFunction
+                              && selectedFunction.params
+                              && selectedFunction.params.map((param, ind) => (
+                                <div>
+                                  <span className={classes.paramIndex}>
+                                    {ind + 1}
+                                    :
+                                  </span>
+                                  <span>{param.name}</span>
+                                  <div className={classes.params}>
+                                    <span dangerouslySetInnerHTML={{ __html: param.description }} />
+                                  </div>
+                                </div>
+                              ))}
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <RunKit source={selectedFunction.examples[0]} />
-              </div>
-            ) : (
-              <div>
-                Home page information rendered here
-              </div>
-            )}
-          </React.Fragment>
-        </CSSTransition>
+                    <RunKit source={selectedFunction.examples[0]} />
+                  </div>
+                )
+              }
+            </React.Fragment>
+          </CSSTransition>
+          {!selectedFunction && <Home />}
+        </React.Fragment>
       </div>
     );
   }
