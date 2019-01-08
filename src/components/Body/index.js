@@ -18,7 +18,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   description: {
-    padding: '25px 100px',
+    padding: '25px 100px 150px 100px',
     maxWidth: 700,
   },
   params: {
@@ -31,6 +31,7 @@ const styles = theme => ({
     borderLeft: `2px solid ${theme.palette.secondary.main}`,
   },
   paramsTitle: {
+    width: '100%',
     color: theme.palette.secondary.main,
   },
   code: {
@@ -61,6 +62,14 @@ const styles = theme => ({
   paramIndex: {
     marginRight: 5,
     display: 'inline-block',
+    paddingBottom: 10,
+    fontWeight: 600,
+  },
+  paramName: {
+    color: theme.palette.quaternary.main,
+  },
+  demoTitle: {
+    color: theme.palette.secondary.main,
   },
 });
 
@@ -91,6 +100,8 @@ class Body extends React.Component {
   render() {
     const { classes, selectedFunction = {} } = this.props;
 
+    console.log(selectedFunction);
+
     return (
       <div className={classes.root}>
         <React.Fragment>
@@ -120,21 +131,18 @@ class Body extends React.Component {
                         className={classes.code}
                         dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
                       />
-                      {selectedFunction
-                        && selectedFunction.params
+                      {selectedFunction.params
                         && selectedFunction.params.length && (
                         <div className={classes.paramsTitle}>
                           <h3>Params</h3>
                           <div className={classes.code}>
                             {selectedFunction
                               && selectedFunction.params
-                              && selectedFunction.params.map((param, ind) => (
+                              && selectedFunction.params.map(param => (
                                 <div>
                                   <span className={classes.paramIndex}>
-                                    {ind + 1}
-                                    :
+                                    {typeof param.type.names === 'array' ? `{${param.type.names.join('  ')}}` : `{${param.type.names}}`}
                                   </span>
-                                  <span>{param.name}</span>
                                   <div className={classes.params}>
                                     <span dangerouslySetInnerHTML={{ __html: param.description }} />
                                   </div>
@@ -144,7 +152,14 @@ class Body extends React.Component {
                         </div>
                       )}
                     </div>
-                    <RunKit source={selectedFunction.examples[0]} />
+                    <h3 className={classes.demoTitle}>Returns</h3>
+                    <div className={classes.code}>
+                      <div dangerouslySetInnerHTML={{ __html: selectedFunction.returns[0].description }} />
+                    </div>
+                    <div>
+                      <h3 className={classes.demoTitle}>Demo</h3>
+                      <RunKit source={selectedFunction.examples[0]} />
+                    </div>
                   </div>
                 )
               }

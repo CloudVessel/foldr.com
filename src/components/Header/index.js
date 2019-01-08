@@ -154,7 +154,7 @@ class Header extends React.Component {
                 className={classes.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://github.com/CloudVessel/foldr.com"
+                href="https://github.com/CloudVessel/foldr"
               >
                 GitHub
               </a>
