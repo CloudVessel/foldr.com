@@ -31,6 +31,9 @@ export default createMuiTheme({
     tertiary: {
       main: '#ffb86c',
     },
+    quaternary: {
+      main: '#8e85e5',
+    },
     foreground: {
       main: '#282a36',
       secondary: '#363842',
