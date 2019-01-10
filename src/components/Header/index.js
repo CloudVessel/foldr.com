@@ -5,12 +5,12 @@ import { withStyles } from '@material-ui/core/styles';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
 import Search from '../Search';
+import withThemeSwitch from '../HOC/withThemeSwitch';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: theme.palette.foreground.secondary,
     color: theme.palette.grey.main,
     boxShadow: theme.shadow.box.main,
     zIndex: 999,
@@ -26,25 +26,27 @@ const styles = theme => ({
     width: 300,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.palette.text.tertiary,
+    color: theme.palette.text.main,
     background: theme.palette.secondary.main,
   },
   titleText: {
     textDecoration: 'none',
     color: 'inherit',
-    fontSize: 40,
+    fontSize: 28,
+    marginLeft: 35,
   },
   version: {
-    background: 'transparent',
+    background: theme.palette.primary.main,
     border: 'none',
     display: 'flex',
     alignItems: 'center',
-    fontSize: 20,
-    marginLeft: 20,
+    fontSize: 15,
+    marginLeft: 30,
     color: theme.palette.text.tertiary,
     cursor: 'pointer',
     outline: 'none',
+    borderRadius: 10,
+    padding: '3px 13px',
   },
   mainContent: {
     height: '100%',
@@ -74,7 +76,7 @@ const styles = theme => ({
     },
   },
   arrowDown: {
-    paddingBottom: 5,
+    paddingLeft: 5,
   },
   select: {
     color: theme.palette.grey.main,
@@ -119,7 +121,7 @@ class Header extends React.Component {
    */
   render() {
     const { isVersionSelectOpen, selectedVersion } = this.state;
-    const { classes, onFunctionSearch } = this.props;
+    const { classes, onFunctionSearch, onThemeSwitch } = this.props;
 
     return (
       <div className={classes.root}>
@@ -154,7 +156,7 @@ class Header extends React.Component {
                 className={classes.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://github.com/CloudVessel/foldr.com"
+                href="https://github.com/CloudVessel/foldr"
               >
                 GitHub
               </a>
@@ -162,10 +164,13 @@ class Header extends React.Component {
             <span className={classes.icon}>Slack</span>
             <span className={classes.icon}>Twitter</span>
           </div>
+          <button onClick={onThemeSwitch}>
+            change theme
+          </button>
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(withStyles(styles)(Header));
+export default withThemeSwitch(withRouter(withStyles(styles)(Header)));
