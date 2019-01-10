@@ -1,5 +1,3 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-
 const overrides = {
   MuiInput: {
     input: {
@@ -19,11 +17,54 @@ const overrides = {
   },
 };
 
-export default createMuiTheme({
+export const light = {
   palette: {
     primary: {
-      main: '#44475a',
-      secondary: '#6272a4',
+      main: '#6FC292',
+      secondary: '#EFF9F4',
+    },
+    secondary: {
+      main: '#fff',
+    },
+    tertiary: {
+      main: '#ffb86c',
+    },
+    quaternary: {
+      main: '#8e85e5',
+    },
+    foreground: {
+      main: '#282a36',
+      secondary: '#363842',
+      tertiary: '#44475a',
+    },
+    grey: {
+      main: '#5C6975',
+      secondary: '#ddd',
+      tertiary: '#999',
+    },
+    text: {
+      main: '#000',
+      secondary: '#9DA8A3',
+      tertiary: '#fff',
+    },
+  },
+  structural: {
+    borderRadius: [2],
+  },
+  shadow: {
+    box: {
+      main: '0 1px 1px 0 rgba(116, 129, 141, 0.1)',
+    },
+  },
+  hovers: ['rgba(54, 56, 66, .8)'],
+  overrides,
+};
+
+export const dark = {
+  palette: {
+    primary: {
+      main: '#282A35',
+      secondary: '#EFF9F4',
     },
     secondary: {
       main: '#52DE9E',
@@ -45,9 +86,9 @@ export default createMuiTheme({
       tertiary: '#999',
     },
     text: {
-      main: '#8E8E8E',
-      secondary: '#bd93f9',
-      tertiary: '#fff',
+      main: '#fff',
+      secondary: '#8E8E8E',
+      tertiary: '#ddd',
     },
   },
   structural: {
@@ -60,4 +101,4 @@ export default createMuiTheme({
   },
   hovers: ['rgba(54, 56, 66, .8)'],
   overrides,
-});
+};
