@@ -37,6 +37,9 @@ export const light = {
       secondary: '#363842',
       tertiary: '#44475a',
     },
+    code: {
+      main: '#EFF9F4',
+    },
     grey: {
       main: '#5C6975',
       secondary: '#ddd',
@@ -79,6 +82,9 @@ export const dark = {
       main: '#282a36',
       secondary: '#363842',
       tertiary: '#44475a',
+    },
+    code: {
+      main: '#EFF9F4',
     },
     grey: {
       main: '#5C6975',

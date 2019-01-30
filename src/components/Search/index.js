@@ -8,11 +8,15 @@ const styles = theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: theme.palette.code.main,
+    padding: '10px 0',
+    borderRadius: 3,
   },
   input: {
     outline: 'none',
     border: 'none',
     color: theme.palette.grey.tertiary,
+    background: 'none',
     paddingLeft: 10,
     '&::placeholder': {
       color: theme.palette.grey.tertiary,
@@ -82,7 +86,7 @@ class SearchComponent extends React.Component {
           <input
             value={term}
             onChange={this.handleInputChange}
-            placeholder="Search.."
+            placeholder="Search docs..."
             className={classes.input}
           />
           {term.length ? (

@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import IntertColors from '@material-ui/icons/InvertColors';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 
 import Search from '../Search';
@@ -57,15 +58,19 @@ const styles = theme => ({
     backgroundColor: theme.palette.text.tertiary,
   },
   search: {
-    flex: 4,
+    flex: 3,
+    paddingRight: 40,
   },
   icons: {
-    flex: 1,
+    flex: 2,
     justifySelf: 'end',
-    paddingRight: 10,
+    padding: '0 25px',
   },
   icon: {
-    padding: '0px 20px',
+    color: theme.palette.grey.main,
+    padding: '0px 25px',
+    textTransform: 'uppercase',
+    fontWeight: 400,
   },
   link: {
     paddingBottom: 5,
@@ -85,10 +90,19 @@ const styles = theme => ({
     bottom: 22,
     width: 125,
   },
+  themeSwitch: {
+    color: theme.palette.grey.main,
+    height: '100%',
+    padding: '10px 30px',
+    background: 'transparent',
+    borderTop: 'none',
+    borderBottom: 'none',
+    cursor: 'pointer',
+  },
 });
 
 /**
- * 
+ *
  */
 class Header extends React.Component {
   anchorRef = null;
@@ -128,7 +142,8 @@ class Header extends React.Component {
         <div className={classes.title}>
           <Link to="/" className={classes.titleText}>foldr</Link>
           <button
-            onClick={this.handleToggleVersionSelect}
+            // @TODO: uncomment when anything above v1.0.0 is released
+            // onClick={this.handleToggleVersionSelect}
             onKeyPress={this.handleToggleVersionSelect}
             ref={this.anchorRef}
             type="button"
@@ -147,25 +162,27 @@ class Header extends React.Component {
           )}
         </div>
         <div className={classes.mainContent}>
+          <div className={classes.icons}>
+            <span className={classes.icon}>
+              <Link
+                className={classes.link}
+                to="/"
+              >
+                Getting Started
+              </Link>
+            </span>
+            <span className={classes.icon}>Api Docs</span>
+            <span className={classes.icon}>GitHub</span>
+          </div>
           <div className={classes.search}>
             <Search onFunctionSearch={onFunctionSearch} />
           </div>
-          <div className={classes.icons}>
-            <span className={classes.icon}>
-              <a
-                className={classes.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://github.com/CloudVessel/foldr"
-              >
-                GitHub
-              </a>
-            </span>
-            <span className={classes.icon}>Slack</span>
-            <span className={classes.icon}>Twitter</span>
-          </div>
-          <button onClick={onThemeSwitch}>
-            change theme
+          <button
+            type="button"
+            className={classes.themeSwitch}
+            onClick={onThemeSwitch}
+          >
+            <IntertColors />
           </button>
         </div>
       </div>

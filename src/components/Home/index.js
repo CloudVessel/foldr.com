@@ -11,13 +11,11 @@ const styles = theme => ({
   heading: {
     fontWeight: 400,
   },
-  util: {
-    marginTop: 50,
+  definition: {
+    marginTop: 25,
   },
-  name: {
-    color: theme.palette.secondary.main,
-    paddingRight: 8,
-    fontWeight: 600,
+  install: {
+    marginTop: 75,
   },
   code: {
     fontWeight: 100,
@@ -31,15 +29,16 @@ const styles = theme => ({
 
 const Home = ({ classes }) => (
   <div className={classes.root}>
-    <h3 className={classes.heading}>
-      <span className={classes.name}>Foldr</span>
-      is a utility library written for all modern and legacy JavaScript environments.
+    <h3 className={classes.definition}>
+      Why Foldr?
     </h3>
     <p>
-      Foldr is a more performant alternative to other utility libraries. Roughly 30% faster to be exact.
+      Foldr is a utility library written for all modern and legacy JavaScript environments.
+      Foldr is a more performant alternative to other utility libraries.
+      Roughly 30% faster to be exact.
     </p>
-    <h3 className={classes.util}>
-      Utilization
+    <h3 className={classes.install}>
+      Installation
     </h3>
     <div>
       <p>
