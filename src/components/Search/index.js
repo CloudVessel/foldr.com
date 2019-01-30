@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import Search from '@material-ui/icons/Search';
 import { withStyles } from '@material-ui/core';
@@ -13,14 +14,15 @@ const styles = theme => ({
     borderRadius: 3,
   },
   input: {
-    outline: 'none',
     border: 'none',
+    outline: 'none',
     color: theme.palette.grey.tertiary,
     background: 'none',
-    paddingLeft: 10,
+    padding: '5px 25px',
     '&::placeholder': {
       color: theme.palette.grey.tertiary,
     },
+    width: '100%',
   },
   icon: {
     marginLeft: 25,
@@ -28,12 +30,19 @@ const styles = theme => ({
   form: {
     display: 'flex',
     alignItems: 'center',
+    width: '100%',
   },
   clear: {
     color: theme.palette.grey.tertiary,
     border: 'none',
     background: 'transparent',
     cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    outline: 'none',
+  },
+  isFocused: {
+    border: `2px solid ${theme.palette.primary.main}`,
   },
 });
 
@@ -45,7 +54,10 @@ class SearchComponent extends React.Component {
     onFunctionSearch: PropTypes.func.isRequired,
   }
 
-  state = { term: '' };
+  state = {
+    term: '',
+    isFocused: false,
+  };
 
   handleInputChange = ({ target }) => {
     const { value: term } = target;
@@ -59,6 +71,8 @@ class SearchComponent extends React.Component {
   }
 
   handleClearInput = () => {
+    this.handleRemoveIsFocused();
+
     const { onFunctionSearch } = this.props;
 
     onFunctionSearch('');
@@ -72,19 +86,30 @@ class SearchComponent extends React.Component {
     preventDefault();
   }
 
+  handleSetIsFocused = () => this.setState({ isFocused: true });
+
+  handleRemoveIsFocused = () => this.setState({ isFocused: false });
+
   /**
    * 
    */
   render() {
-    const { term } = this.state;
+    const { term, isFocused } = this.state;
     const { classes } = this.props;
 
+    console.log('here', isFocused);
+
     return (
-      <div className={classes.root}>
+      <div className={cn(classes.root, {
+        [classes.isFocused]: isFocused,
+      })}
+      >
         <Search className={classes.icon} />
         <form className={classes.form} onSubmit={this.handleSearchSubmit}>
           <input
             value={term}
+            onClick={this.handleSetIsFocused}
+            onBlur={this.handleRemoveIsFocused}
             onChange={this.handleInputChange}
             placeholder="Search docs..."
             className={classes.input}

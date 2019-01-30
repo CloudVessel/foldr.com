@@ -6,7 +6,7 @@ import Accordion from '../Accordion';
 
 const styles = () => ({
   root: {
-    padding: 10,
+    padding: 0,
     display: 'block',
     fontWeight: 400,
   },

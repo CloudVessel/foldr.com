@@ -10,10 +10,18 @@ export const ThemeContext = React.createContext();
  * @returns {React.Component} - ThemeProvider
  */
 class ThemeProvider extends React.Component {
-  state = {
-    theme: light,
-    /* eslint-disable-next-line */
-    isLight: true,
+  /**
+   * @inheritDoc
+   */
+  constructor(props) {
+    super(props);
+
+    const isLight = JSON.parse(localStorage.getItem('isLight'));
+
+    this.state = {
+      theme: isLight ? light : dark,
+      isLight,
+    };
   }
 
   /**
@@ -28,6 +36,8 @@ class ThemeProvider extends React.Component {
 
   handleThemeToggle = () => {
     const { isLight } = this.state;
+
+    localStorage.setItem('isLight', isLight);
 
     this.setState({
       theme: isLight ? light : dark,
