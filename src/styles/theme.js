@@ -50,6 +50,9 @@ export const light = {
       secondary: '#9DA8A3',
       tertiary: '#fff',
     },
+    white: {
+      main: '#fff',
+    },
   },
   structural: {
     borderRadius: [2],
@@ -95,6 +98,9 @@ export const dark = {
       main: '#fff',
       secondary: '#8E8E8E',
       tertiary: '#ddd',
+    },
+    white: {
+      main: '#fff',
     },
   },
   structural: {

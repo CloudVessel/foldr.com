@@ -26,13 +26,17 @@ const styles = theme => ({
     marginBottom: 15,
   },
   title: {
+    display: 'flex',
+    alignItems: 'center',
     color: theme.palette.secondary.main,
-    padding: '10px 25px',
-    borderLeft: `2px solid ${theme.palette.secondary.main}`,
+    padding: '10px 0',
   },
   paramsTitle: {
     width: '100%',
     color: theme.palette.secondary.main,
+  },
+  summary: {
+    color: theme.palette.grey.secondary,
   },
   code: {
     flex: 1,
@@ -49,15 +53,21 @@ const styles = theme => ({
     border: '1px solid',
     borderColor: theme.palette.foreground.tertiary,
   },
+  sinceWrapper: {
+    marginLeft: 25,
+    borderRadius: 10,
+    padding: '7px 10px',
+    display: 'inline-flex',
+    backgroundColor: theme.palette.primary.main,
+  },
   since: {
     fontSize: 12,
-    marginLeft: 35,
-    color: theme.palette.grey.secondary,
+    color: theme.palette.white.main,
   },
   version: {
     marginLeft: 3,
     fontSize: 12,
-    color: theme.palette.grey.secondary,
+    color: theme.palette.white.main,
   },
   paramIndex: {
     marginRight: 5,
@@ -117,20 +127,23 @@ class Body extends React.Component {
                   <div className={classes.description}>
                     <h2 className={classes.title}>
                       {selectedFunction.name}
-                      <span className={classes.since}>
-                        Since:
-                      </span>
-                      <span className={classes.version}>
-                        v
-                        {selectedFunction.since}
+                      {selectedFunction.params
+                        && `(${selectedFunction.params.map((param, i) => `${i === 0 ? '' : ' '}${param.name}`)})`
+                      }
+                      <span className={classes.sinceWrapper}>
+                        <span className={classes.since}>
+                          Since
+                        </span>
+                        <span className={classes.version}>
+                          {selectedFunction.since}
+                        </span>
                       </span>
                     </h2>
-                    <hr className={classes.divider} />
+                    <div
+                      className={classes.summary}
+                      dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
+                    />
                     <div className={classes.main}>
-                      <div
-                        className={classes.code}
-                        dangerouslySetInnerHTML={{ __html: selectedFunction.description }}
-                      />
                       {selectedFunction.params
                         && selectedFunction.params.length && (
                         <div className={classes.paramsTitle}>
@@ -157,7 +170,7 @@ class Body extends React.Component {
                       <div dangerouslySetInnerHTML={{ __html: selectedFunction.returns[0].description }} />
                     </div>
                     <div>
-                      <h3 className={classes.demoTitle}>Demo</h3>
+                      <h3 className={classes.demoTitle}>Example</h3>
                       <RunKit source={selectedFunction.examples[0]} />
                     </div>
                   </div>

@@ -35,6 +35,9 @@ const styles = theme => ({
     display: 'block',
     margin: '20px 0',
   },
+  anchor: {
+    color: 'inherit',
+  },
 });
 
 const mapCategoriesToLinks = ({ onSelectedFunction, isSearching, selectedFunction }) =>
@@ -73,7 +76,16 @@ const Sidebar = (props) => {
             ? <Loading />
             : mappedCategoriesWithProps(funcs)
         }
-        <h4 className={classes.title}>GitHub</h4>
+        <h4 className={classes.title}>
+          <a
+            className={classes.anchor}
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://github.com/CloudVessel/foldr"
+          >
+            GitHub
+          </a>
+        </h4>
       </div>
     </div>
   );
